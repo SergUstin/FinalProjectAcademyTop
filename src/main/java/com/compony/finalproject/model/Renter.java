@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,6 +29,9 @@ public class Renter {
 
     String email;
 
+    Long rating;
+
+    @CreationTimestamp
     @Column(name = "data_registration")
     LocalDateTime dataRegistration;
 

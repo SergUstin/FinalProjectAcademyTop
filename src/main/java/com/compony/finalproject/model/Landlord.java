@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +29,10 @@ public class Landlord {
 
     String email;
 
+    Long rating;
+
     @Column(name = "data_registration")
+    @CreationTimestamp
     LocalDateTime dataRegistration;
 
     @OneToMany(mappedBy = "landlord", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
