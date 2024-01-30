@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="createLandlordTable" author="admin">
+        <createTable tableName="landlords">
+            <column name="id" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="full_name" type="varchar(255)"/>
+            <column name="phone_number" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="rating" type="number"/>
+            <column name="data_registration" type="timestamp(6)"/>
+            <column name="apartment_id"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createRenterTable" author="admin">
+        <createTable tableName="renters">
+            <column name="id" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="full_name" type="varchar(255)"/>
+            <column name="phone_number" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="rating" type="number"/>
+            <column name="data_registration" type="timestamp(6)"/>
+            <column name="apartment_id"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createApartmentsTable" author="admin">
+        <createTable tableName="apartments">
+            <column name="id" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="city" type="varchar(255)"/>
+            <column name="address" type="varchar(255)"/>
+            <column name="landlord_id" type="serial"/>
+            <column name="renter_id" type="serial"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="addForeignKeyToApartmentsForLandlords" author="admin">
+        <addForeignKeyConstraint baseTableName="apartments"
+                                 baseColumnNames="landlord_id"
+                                 constraintName="fk_apartments_landlords"
+                                 referencedTableName="landlords"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="addForeignKeyToApartmentsForRenters" author="admin">
+        <addForeignKeyConstraint baseTableName="apartments"
+                                 baseColumnNames="renter_id"
+                                 constraintName="fk_apartments_renters"
+                                 referencedTableName="renters"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>
