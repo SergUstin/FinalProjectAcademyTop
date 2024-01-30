@@ -9,4 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface ApartmentMapper {
     ApartmentMapper INSTANCE = Mappers.getMapper(ApartmentMapper.class);
     ApartmentDto toDto(Apartment apartment);
+    Apartment toEntity(ApartmentDto apartmentDto);
 }

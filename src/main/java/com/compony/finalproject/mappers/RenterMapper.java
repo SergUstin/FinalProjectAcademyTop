@@ -9,4 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface RenterMapper {
     RenterMapper INSTANCE = Mappers.getMapper(RenterMapper.class);
     RenterDto toDto(Renter renter);
+    Renter toEntity(RenterDto renterDto);
 }
