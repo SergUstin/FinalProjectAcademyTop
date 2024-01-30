@@ -36,8 +36,8 @@ public class Landlord {
     @CreationTimestamp
     LocalDateTime dataRegistration;
 
-    @ManyToMany(mappedBy = "landlords", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "apartment_id", nullable = false)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "apartments", joinColumns = {@JoinColumn(name = "id")})
     List<Apartment> apartments;
 
 
