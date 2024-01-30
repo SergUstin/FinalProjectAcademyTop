@@ -6,41 +6,41 @@
 
     <changeSet id="createLandlordTable" author="admin">
         <createTable tableName="landlords">
-            <column name="id" autoIncrement="true">
+            <column name="id" autoIncrement="true" type="integer">
                 <constraints primaryKey="true" />
             </column>
             <column name="full_name" type="varchar(255)"/>
             <column name="phone_number" type="varchar(255)"/>
             <column name="email" type="varchar(255)"/>
-            <column name="rating" type="number"/>
+            <column name="rating" type="integer"/>
             <column name="data_registration" type="timestamp(6)"/>
-            <column name="apartment_id"/>
+            <column name="apartment_id" type="integer"/>
         </createTable>
     </changeSet>
 
     <changeSet id="createRenterTable" author="admin">
         <createTable tableName="renters">
-            <column name="id" autoIncrement="true">
+            <column name="id" autoIncrement="true" type="integer">
                 <constraints primaryKey="true" />
             </column>
             <column name="full_name" type="varchar(255)"/>
             <column name="phone_number" type="varchar(255)"/>
             <column name="email" type="varchar(255)"/>
-            <column name="rating" type="number"/>
+            <column name="rating" type="integer"/>
             <column name="data_registration" type="timestamp(6)"/>
-            <column name="apartment_id"/>
+            <column name="apartment_id" type="integer"/>
         </createTable>
     </changeSet>
 
     <changeSet id="createApartmentsTable" author="admin">
         <createTable tableName="apartments">
-            <column name="id" autoIncrement="true">
+            <column name="id" autoIncrement="true" type="integer">
                 <constraints primaryKey="true" />
             </column>
             <column name="city" type="varchar(255)"/>
             <column name="address" type="varchar(255)"/>
-            <column name="landlord_id" type="serial"/>
-            <column name="renter_id" type="serial"/>
+            <column name="landlord_id" type="integer"/>
+            <column name="renter_id" type="integer"/>
         </createTable>
     </changeSet>
 
