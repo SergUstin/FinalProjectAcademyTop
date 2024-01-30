@@ -2,7 +2,6 @@ package com.compony.finalproject.service;
 
 import com.compony.finalproject.dto.LandlordDto;
 import com.compony.finalproject.mappers.LandlordMapper;
-import com.compony.finalproject.model.Landlord;
 import com.compony.finalproject.repository.LandlordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,20 +20,31 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
 
     private final LandlordRepository landlordRepository;
 
+    /**
+     * Получение объекта арендодателя по его идентификатору.
+     *
+     * @param id идентификатор арендодателя
+     * @return объект DTO арендодателя
+     * @throws NoSuchElementException если арендодатель не найден
+     */
     @Override
     public LandlordDto getById(Integer id) {
         log.info("Getting landlord by id {}", id);
 
-        Optional<Landlord> optionalLandlord = landlordRepository.findById(id);
-
-        if (optionalLandlord.isPresent()) {
-            return LandlordMapper.INSTANCE.toDto(optionalLandlord.get());
-        } else {
-            log.warn("Landlord not found with id: {}", id);
-            throw new NoSuchElementException("Landlord not found with id: " + id);
-        }
+        return landlordRepository.findById(id)
+                .map(LandlordMapper.INSTANCE::toDto)
+                .orElseThrow(() -> {
+                    log.warn("Landlord not found with id: {}", id);
+                    return new NoSuchElementException("Landlord not found with id: " + id);
+                });
     }
 
+    /**
+     * Извлекает всех арендаторов из репозитория и возвращает коллекцию их DTO.
+     *
+     * @return коллекция DTO арендаторов
+     * @throws NoSuchElementException, если после отображения найден пустой элемент
+     */
     @Override
     public Collection<LandlordDto> getAll() {
         log.info("Getting all landlords");
@@ -52,50 +62,64 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Сохраняет арендатора и записывает информацию о сохранении в журнал.
+     *
+     * @param item DTO арендатора
+     * @throws IllegalArgumentException, если переданный объект является пустым
+     */
     @Override
     public void create(LandlordDto item) {
         log.info("Saving landlord: {}", item);
 
-        if (item == null) {
-            throw new IllegalArgumentException("Cannot save null DTO");
-        }
-
-        Landlord landlordEntity = LandlordMapper.INSTANCE.toEntity(item);
-
-        if (landlordEntity == null) {
-            throw new IllegalArgumentException("Cannot save null Entity");
-        }
-
-        landlordRepository.save(landlordEntity);
-        log.info("Landlord saved successfully: {}", landlordEntity);
+        Optional.ofNullable(item)
+                .map(LandlordMapper.INSTANCE::toEntity)
+                .map(landlordEntity -> {
+                    landlordRepository.save(landlordEntity);
+                    log.info("Landlord saved successfully: {}", landlordEntity);
+                    return landlordEntity; // Возвращаем сущность для цепочки, если это необходимо дальше
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Cannot save null DTO or Entity"));
     }
 
+    /**
+     * Обновляет данные арендатора и записывает информацию о сохранении в журнал.
+     *
+     * @param item DTO арендатора
+     * @throws IllegalArgumentException, если переданный объект является пустым
+     */
     @Override
     public void update(LandlordDto item) {
         log.info("Updating landlord: {}", item);
 
-        if (item == null) {
-            throw new IllegalArgumentException("Cannot update null DTO");
-        }
-
-        Landlord landlordEntity = LandlordMapper.INSTANCE.toEntity(item);
-
-        if (landlordEntity == null) {
-            throw new IllegalArgumentException("Cannot update null Entity");
-        }
-
-        landlordRepository.save(landlordEntity);
-        log.info("Landlord updated successfully: {}", landlordEntity);
+        Optional.ofNullable(item)
+                .map(LandlordMapper.INSTANCE::toEntity)
+                .map(landlordEntity -> {
+                    landlordRepository.save(landlordEntity);
+                    log.info("Landlord updated successfully: {}", landlordEntity);
+                    return landlordEntity; // Возвращаем сущность для цепочки, если это необходимо дальше
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Cannot update null DTO or Entity"));
     }
 
+    /**
+     * Удаляет арендатора по его идентификатору.
+     *
+     * @param id идентификатор арендатора, который необходимо удалить
+     * @throws IllegalArgumentException если переданный идентификатор равен null
+     */
     @Override
     public void delete(Integer id) {
-        if (id != null) {
-            log.info("Delete by ID: {}", id);
-            landlordRepository.deleteById(id);
-        } else {
-            log.warn("Unable to delete landlord. ID cannot be null.");
-            throw new IllegalArgumentException("Unable to delete landlord. ID cannot be null.");
-        }
+        Optional.ofNullable(id)
+                .ifPresentOrElse(
+                        existingId -> {
+                            log.info("Удаление арендатора по ID: {}", existingId);
+                            landlordRepository.deleteById(existingId);
+                        },
+                        () -> {
+                            log.warn("Не удается удалить арендатора. ID не может быть null.");
+                            throw new IllegalArgumentException("Не удается удалить арендатора. ID не может быть null.");
+                        }
+                );
     }
 }
