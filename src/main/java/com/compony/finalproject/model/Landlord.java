@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@Table(name = "landlord")
+@Table(name = "landlords")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Landlord {
 
@@ -21,26 +21,23 @@ public class Landlord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false)
     String fullName;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     String phoneNumber;
 
+    @Column(nullable = false)
     String email;
 
     Long rating;
 
-    @Column(name = "data_registration")
+    @Column(name = "data_registration", nullable = false)
     @CreationTimestamp
     LocalDateTime dataRegistration;
 
-    @OneToMany(mappedBy = "landlord", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "renter_id")
-    List<Renter> renters;
-
-    @OneToMany(mappedBy = "landlord", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "apartment_id")
+    @ManyToMany(mappedBy = "landlords", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "apartment_id", nullable = false)
     List<Apartment> apartments;
 
 

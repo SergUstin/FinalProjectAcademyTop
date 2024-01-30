@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-@Table(name = "renter")
+@Table(name = "renters")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Renter {
 
@@ -35,11 +35,7 @@ public class Renter {
     @Column(name = "data_registration")
     LocalDateTime dataRegistration;
 
-    @OneToMany(mappedBy = "renter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "landlords_id")
-    List<Landlord> landlords;
-
-    @OneToMany(mappedBy = "renter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "renters", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "apartment_id")
     List<Apartment> apartments;
 

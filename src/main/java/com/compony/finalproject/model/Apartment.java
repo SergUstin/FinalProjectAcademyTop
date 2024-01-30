@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Setter
 @Getter
-@Table(name = "apartment")
+@Table(name = "apartments")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Apartment {
 
