@@ -5,6 +5,7 @@ import com.compony.finalproject.mappers.LandlordMapper;
 import com.compony.finalproject.repository.LandlordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -14,11 +15,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
 
     private final LandlordRepository landlordRepository;
+
+    @Autowired
+    public LandlordCrudServiceImpl(LandlordRepository landlordRepository) {
+        this.landlordRepository = landlordRepository;
+    }
 
     /**
      * Получение объекта арендодателя по его идентификатору.
@@ -40,9 +45,9 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
     }
 
     /**
-     * Извлекает всех арендаторов из репозитория и возвращает коллекцию их DTO.
+     * Извлекает всех арендодателей из репозитория и возвращает коллекцию их DTO.
      *
-     * @return коллекция DTO арендаторов
+     * @return коллекция DTO арендодателей
      * @throws NoSuchElementException, если после отображения найден пустой элемент
      */
     @Override
@@ -63,9 +68,9 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
     }
 
     /**
-     * Сохраняет арендатора и записывает информацию о сохранении в журнал.
+     * Сохраняет арендодателя и записывает информацию о сохранении в журнал.
      *
-     * @param item DTO арендатора
+     * @param item DTO арендодателя
      * @throws IllegalArgumentException, если переданный объект является пустым
      */
     @Override
@@ -83,9 +88,9 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
     }
 
     /**
-     * Обновляет данные арендатора и записывает информацию о сохранении в журнал.
+     * Обновляет данные арендодателя и записывает информацию о сохранении в журнал.
      *
-     * @param item DTO арендатора
+     * @param item DTO арендодателя
      * @throws IllegalArgumentException, если переданный объект является пустым
      */
     @Override
@@ -103,9 +108,9 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
     }
 
     /**
-     * Удаляет арендатора по его идентификатору.
+     * Удаляет арендодателя по его идентификатору.
      *
-     * @param id идентификатор арендатора, который необходимо удалить
+     * @param id идентификатор арендодателя, который необходимо удалить
      * @throws IllegalArgumentException если переданный идентификатор равен null
      */
     @Override
@@ -113,12 +118,12 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
         Optional.ofNullable(id)
                 .ifPresentOrElse(
                         existingId -> {
-                            log.info("Удаление арендатора по ID: {}", existingId);
+                            log.info("Deleting a landlord by ID: {}", existingId);
                             landlordRepository.deleteById(existingId);
                         },
                         () -> {
-                            log.warn("Не удается удалить арендатора. ID не может быть null.");
-                            throw new IllegalArgumentException("Не удается удалить арендатора. ID не может быть null.");
+                            log.warn("The landlord cannot be deleted. The ID cannot be null.");
+                            throw new IllegalArgumentException("The landlord cannot be deleted. The ID cannot be null.");
                         }
                 );
     }
