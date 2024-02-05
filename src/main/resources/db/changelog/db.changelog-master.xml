@@ -50,7 +50,7 @@
                                  constraintName="fk_apartments_landlords"
                                  referencedTableName="landlords"
                                  referencedColumnNames="id"
-                                 onDelete="CASCADE"/>
+                                 onDelete="SET NULL"/>
     </changeSet>
 
     <changeSet id="addForeignKeyToApartmentsForRenters" author="admin">
@@ -59,6 +59,6 @@
                                  constraintName="fk_apartments_renters"
                                  referencedTableName="renters"
                                  referencedColumnNames="id"
-                                 onDelete="CASCADE"/>
+                                 onDelete="SET NULL"/>
     </changeSet>
 </databaseChangeLog>

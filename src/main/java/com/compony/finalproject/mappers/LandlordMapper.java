@@ -5,7 +5,7 @@ import com.compony.finalproject.model.Landlord;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring", uses = ApartmentMapper.class)
 public interface LandlordMapper {
     LandlordMapper INSTANCE = Mappers.getMapper(LandlordMapper.class);
     LandlordDto toDto(Landlord landlord);
