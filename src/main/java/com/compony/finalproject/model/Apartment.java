@@ -15,17 +15,16 @@ public class Apartment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-    String city;
+    private String city;
+    private String address;
 
-    String address;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "landlord_id")
-    Landlord landlord;
+    private Landlord landlord;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "renter_id")
-    Renter renter;
+    @OneToOne
+    @JoinColumn(name = "tenant_id")
+    private Tenant tenant;
 }

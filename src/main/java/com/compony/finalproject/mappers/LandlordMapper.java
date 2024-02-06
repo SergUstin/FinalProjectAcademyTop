@@ -2,38 +2,28 @@ package com.compony.finalproject.mappers;
 
 import com.compony.finalproject.dto.LandlordDto;
 import com.compony.finalproject.model.Landlord;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-
+@Component
 public class LandlordMapper {
 
-    public static LandlordDto toDto(Landlord landlord) {
-        LandlordDto dto = new LandlordDto();
-        dto.setId(landlord.getId());
-        dto.setFullName(landlord.getFullName());
-        dto.setPhoneNumber(landlord.getPhoneNumber());
-        dto.setEmail(landlord.getEmail());
-        dto.setRating(landlord.getRating());
-        return dto;
+    public LandlordDto toDto(Landlord landlord) {
+        LandlordDto landlordDto = new LandlordDto();
+        landlordDto.setId(landlord.getId());
+        landlordDto.setFullName(landlord.getFullName());
+        landlordDto.setPhoneNumber(landlord.getPhoneNumber());
+        landlordDto.setEmail(landlord.getEmail());
+        landlordDto.setRating(landlord.getRating());
+        return landlordDto;
     }
 
-    public static Landlord toEntity(LandlordDto dto) {
+    public Landlord toEntity(LandlordDto landlordDto) {
         Landlord landlord = new Landlord();
-        landlord.setId(dto.getId());
-        landlord.setFullName(dto.getFullName());
-        landlord.setPhoneNumber(dto.getPhoneNumber());
-        landlord.setEmail(dto.getEmail());
-        landlord.setRating(dto.getRating());
+        landlord.setId(landlordDto.getId());
+        landlord.setFullName(landlordDto.getFullName());
+        landlord.setPhoneNumber(landlordDto.getPhoneNumber());
+        landlord.setEmail(landlordDto.getEmail());
+        landlord.setRating(landlordDto.getRating());
         return landlord;
-    }
-
-    public static List<LandlordDto> toDTOList(List<Landlord> landlords) {
-        return landlords.stream().map(LandlordMapper::toDto).collect(Collectors.toList());
-    }
-
-    public static List<Landlord> fromDTOList(List<LandlordDto> dtos) {
-        return dtos.stream().map(LandlordMapper::toEntity).collect(Collectors.toList());
     }
 }

@@ -20,18 +20,16 @@ public class Landlord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name")
     String fullName;
-
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     String phoneNumber;
 
-    @Column(nullable = false)
     String email;
 
     Long rating;
 
-    @Column(name = "data_registration", nullable = false)
+    @Column(name = "data_registration")
     @CreationTimestamp
     LocalDateTime dataRegistration;
 }

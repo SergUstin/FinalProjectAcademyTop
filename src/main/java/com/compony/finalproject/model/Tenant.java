@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 @Setter
 @Getter
-@Table(name = "renters")
+@Table(name = "tenants")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Renter {
+public class Tenant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,6 @@ public class Renter {
 
     @Column(name = "full_name")
     String fullName;
-
     @Column(name = "phone_number")
     String phoneNumber;
 
@@ -30,8 +29,7 @@ public class Renter {
 
     Long rating;
 
-    @CreationTimestamp
     @Column(name = "data_registration")
+    @CreationTimestamp
     LocalDateTime dataRegistration;
-
 }

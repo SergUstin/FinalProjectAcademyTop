@@ -10,6 +10,6 @@ public class ApartmentDto {
     Integer id;
     String city;
     String address;
-    Integer landlordId;
-    Integer renterId;
+    LandlordDto landlord;
+    TenantDto tenant;
 }

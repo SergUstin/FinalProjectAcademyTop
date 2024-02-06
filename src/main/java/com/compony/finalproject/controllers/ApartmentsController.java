@@ -1,24 +1,23 @@
 package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.dto.ApartmentDto;
-import com.compony.finalproject.dto.RenterDto;
-import com.compony.finalproject.service.ApartmentCrudServiceImpl;
-import com.compony.finalproject.service.RenterCrudServiceImpl;
+import com.compony.finalproject.service.ApartmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/apartments")
 public class ApartmentsController {
 
-    private final ApartmentCrudServiceImpl apartmentService;
+    private final ApartmentServiceImpl apartmentService;
 
     @Autowired
-    public ApartmentsController(ApartmentCrudServiceImpl apartmentService) {
+    public ApartmentsController(ApartmentServiceImpl apartmentService) {
         this.apartmentService = apartmentService;
     }
 
@@ -33,9 +32,9 @@ public class ApartmentsController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<ApartmentDto>> getAll() {
+    public ResponseEntity<List<ApartmentDto>> getAll() {
         try {
-            Collection<ApartmentDto> apartmentDto = apartmentService.getAll();
+            List<ApartmentDto> apartmentDto = apartmentService.getAll();
             return ResponseEntity.ok(apartmentDto);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -52,10 +51,10 @@ public class ApartmentsController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<ApartmentDto> update(@RequestBody ApartmentDto apartmentDto) {
+    @PutMapping("/{id}")
+    public ResponseEntity<ApartmentDto> update(@PathVariable Integer id, @RequestBody ApartmentDto apartmentDto) {
         try {
-            apartmentService.update(apartmentDto);
+            apartmentService.update(id, apartmentDto);
             return ResponseEntity.status(HttpStatus.OK).body(apartmentDto);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

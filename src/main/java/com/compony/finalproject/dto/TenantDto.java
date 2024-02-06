@@ -7,11 +7,10 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RenterDto {
+public class TenantDto {
     Integer id;
     String fullName;
     String phoneNumber;
     String email;
     Long rating;
-
 }

@@ -1,22 +1,23 @@
 package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.dto.LandlordDto;
-import com.compony.finalproject.service.LandlordCrudServiceImpl;
+import com.compony.finalproject.service.LandlordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/landlords")
-public class LandlordsController {
+public class LandlordController {
 
-    private final LandlordCrudServiceImpl landlordService;
+    private final LandlordServiceImpl landlordService;
 
     @Autowired
-    public LandlordsController(LandlordCrudServiceImpl landlordService) {
+    public LandlordController(LandlordServiceImpl landlordService) {
         this.landlordService = landlordService;
     }
 
@@ -31,9 +32,9 @@ public class LandlordsController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<LandlordDto>> getAll() {
+    public ResponseEntity<List<LandlordDto>> getAll() {
         try {
-            Collection<LandlordDto> landlordDto = landlordService.getAll();
+            List<LandlordDto> landlordDto = landlordService.getAll();
             return ResponseEntity.ok(landlordDto);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -50,10 +51,10 @@ public class LandlordsController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<LandlordDto> update(@RequestBody LandlordDto landlordDto) {
+    @PutMapping("/{id}")
+    public ResponseEntity<LandlordDto> update(@PathVariable Integer id, @RequestBody LandlordDto landlordDto) {
         try {
-            landlordService.update(landlordDto);
+            landlordService.update(id, landlordDto);
             return ResponseEntity.status(HttpStatus.OK).body(landlordDto);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
