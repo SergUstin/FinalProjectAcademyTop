@@ -36,7 +36,7 @@ public class ApartmentCrudServiceImpl implements CrudService<ApartmentDto> {
         log.info("Getting apartment by id {}", id);
 
         return apartmentRepository.findById(id)
-                .map(ApartmentMapper.INSTANCE::toDto)
+                .map(ApartmentMapper::toDto)
                 .orElseThrow(() -> {
                     log.warn("Apartment not found with id: {}", id);
                     return new NoSuchElementException("Apartment not found with id: " + id);
@@ -54,7 +54,7 @@ public class ApartmentCrudServiceImpl implements CrudService<ApartmentDto> {
         log.info("Getting all apartments");
         return apartmentRepository.findAll()
                 .stream()
-                .map(ApartmentMapper.INSTANCE::toDto)
+                .map(ApartmentMapper::toDto)
                 .flatMap(dto -> {
                     if (dto == null) {
                         log.warn("Null element found after mapping");
@@ -77,7 +77,7 @@ public class ApartmentCrudServiceImpl implements CrudService<ApartmentDto> {
         log.info("Saving apartment: {}", item);
 
         Optional.ofNullable(item)
-                .map(ApartmentMapper.INSTANCE::toEntity)
+                .map(ApartmentMapper::toEntity)
                 .map(apartment -> {
                     apartmentRepository.save(apartment);
                     log.info("Apartment saved successfully: {}", apartment);
@@ -92,7 +92,7 @@ public class ApartmentCrudServiceImpl implements CrudService<ApartmentDto> {
         log.info("Updating apartment: {}", item);
 
         Optional.ofNullable(item)
-                .map(ApartmentMapper.INSTANCE::toEntity)
+                .map(ApartmentMapper::toEntity)
                 .map(apartment -> {
                     apartmentRepository.save(apartment);
                     log.info("Apartment updated successfully: {}", apartment);

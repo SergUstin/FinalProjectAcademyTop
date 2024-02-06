@@ -36,7 +36,7 @@ public class RenterCrudServiceImpl implements CrudService<RenterDto>{
         log.info("Getting renter by id {}", id);
 
         return renterRepository.findById(id)
-                .map(RenterMapper.INSTANCE::toDto)
+                .map(RenterMapper::toDto)
                 .orElseThrow(() -> {
                     log.warn("Renter not found with id: {}", id);
                     return new NoSuchElementException("Renter not found with id: " + id);
@@ -54,7 +54,7 @@ public class RenterCrudServiceImpl implements CrudService<RenterDto>{
         log.info("Getting all renters");
         return renterRepository.findAll()
                 .stream()
-                .map(RenterMapper.INSTANCE::toDto)
+                .map(RenterMapper::toDto)
                 .flatMap(dto -> {
                     if (dto == null) {
                         log.warn("Null element found after mapping");
@@ -77,7 +77,7 @@ public class RenterCrudServiceImpl implements CrudService<RenterDto>{
         log.info("Saving renter: {}", item);
 
         Optional.ofNullable(item)
-                .map(RenterMapper.INSTANCE::toEntity)
+                .map(RenterMapper::toEntity)
                 .map(renter -> {
                     renterRepository.save(renter);
                     log.info("Renter saved successfully: {}", renter);
@@ -97,7 +97,7 @@ public class RenterCrudServiceImpl implements CrudService<RenterDto>{
         log.info("Updating renter: {}", item);
 
         Optional.ofNullable(item)
-                .map(RenterMapper.INSTANCE::toEntity)
+                .map(RenterMapper::toEntity)
                 .map(renter -> {
                     renterRepository.save(renter);
                     log.info("Renter updated successfully: {}", renter);

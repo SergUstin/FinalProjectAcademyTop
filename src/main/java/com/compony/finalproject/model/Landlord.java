@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Setter
@@ -35,10 +34,6 @@ public class Landlord {
     @Column(name = "data_registration", nullable = false)
     @CreationTimestamp
     LocalDateTime dataRegistration;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "apartments", joinColumns = {@JoinColumn(name = "id")})
-    List<Apartment> apartments;
 
 
 }

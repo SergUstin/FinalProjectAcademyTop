@@ -36,7 +36,7 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
         log.info("Getting landlord by id {}", id);
 
         return landlordRepository.findById(id)
-                .map(LandlordMapper.INSTANCE::toDto)
+                .map(LandlordMapper::toDto)
                 .orElseThrow(() -> {
                     log.warn("Landlord not found with id: {}", id);
                     return new NoSuchElementException("Landlord not found with id: " + id);
@@ -54,7 +54,7 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
         log.info("Getting all landlords");
         return landlordRepository.findAll()
                 .stream()
-                .map(LandlordMapper.INSTANCE::toDto)
+                .map(LandlordMapper::toDto)
                 .flatMap(dto -> {
                     if (dto == null) {
                         log.warn("Null element found after mapping");
@@ -77,7 +77,7 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
         log.info("Saving landlord: {}", item);
 
         Optional.ofNullable(item)
-                .map(LandlordMapper.INSTANCE::toEntity)
+                .map(LandlordMapper::toEntity)
                 .map(landlordEntity -> {
                     landlordRepository.save(landlordEntity);
                     log.info("Landlord saved successfully: {}", landlordEntity);
@@ -97,7 +97,7 @@ public class LandlordCrudServiceImpl implements CrudService<LandlordDto> {
         log.info("Updating landlord: {}", item);
 
         Optional.ofNullable(item)
-                .map(LandlordMapper.INSTANCE::toEntity)
+                .map(LandlordMapper::toEntity)
                 .map(landlordEntity -> {
                     landlordRepository.save(landlordEntity);
                     log.info("Landlord updated successfully: {}", landlordEntity);

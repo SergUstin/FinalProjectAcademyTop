@@ -14,7 +14,6 @@
             <column name="email" type="varchar(255)"/>
             <column name="rating" type="integer"/>
             <column name="data_registration" type="timestamp(6)"/>
-            <column name="apartment_id" type="integer"/>
         </createTable>
     </changeSet>
 
@@ -28,7 +27,6 @@
             <column name="email" type="varchar(255)"/>
             <column name="rating" type="integer"/>
             <column name="data_registration" type="timestamp(6)"/>
-            <column name="apartment_id" type="integer"/>
         </createTable>
     </changeSet>
 
