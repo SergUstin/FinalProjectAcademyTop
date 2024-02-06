@@ -36,7 +36,7 @@ public class RenterCrudServiceImpl implements CrudService<RenterDto>{
         log.info("Getting renter by id {}", id);
 
         return renterRepository.findById(id)
-                .map(RenterMapper::toDto)
+                .map(RenterMapper::toDTO)
                 .orElseThrow(() -> {
                     log.warn("Renter not found with id: {}", id);
                     return new NoSuchElementException("Renter not found with id: " + id);
@@ -54,7 +54,7 @@ public class RenterCrudServiceImpl implements CrudService<RenterDto>{
         log.info("Getting all renters");
         return renterRepository.findAll()
                 .stream()
-                .map(RenterMapper::toDto)
+                .map(RenterMapper::toDTO)
                 .flatMap(dto -> {
                     if (dto == null) {
                         log.warn("Null element found after mapping");

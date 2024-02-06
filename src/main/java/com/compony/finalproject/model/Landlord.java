@@ -34,6 +34,4 @@ public class Landlord {
     @Column(name = "data_registration", nullable = false)
     @CreationTimestamp
     LocalDateTime dataRegistration;
-
-
 }
