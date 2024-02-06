@@ -1,13 +1,13 @@
 package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.dto.LandlordDto;
-import com.compony.finalproject.service.LandlordServiceImpl;
+import com.compony.finalproject.service.impl.LandlordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -41,13 +41,18 @@ public class LandlordController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<LandlordDto> create(@RequestBody LandlordDto landlordDto) {
+    @PostMapping("/register-landlord")
+    public String create(@RequestBody LandlordDto landlordDto) {
+        // В этом методе данные, введенные веб-формой, автоматически связываются с объектом Landlord
+        // Пароль следует зашифровать перед сохранением в базу данных
+        // Пример шифрования пароля с помощью BCrypt:
+        String encryptedPassword = BCrypt.hashpw(landlordDto.getPassword(), BCrypt.gensalt());
+        landlordDto.setPassword(encryptedPassword);
         try {
             landlordService.create(landlordDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(landlordDto);
+            return "redirect:/apartments";
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return "redirect:/notFound";
         }
     }
 

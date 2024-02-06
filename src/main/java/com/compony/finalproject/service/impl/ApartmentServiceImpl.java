@@ -1,4 +1,4 @@
-package com.compony.finalproject.service;
+package com.compony.finalproject.service.impl;
 
 import com.compony.finalproject.dto.ApartmentDto;
 import com.compony.finalproject.mappers.ApartmentMapper;
@@ -8,6 +8,7 @@ import com.compony.finalproject.model.Tenant;
 import com.compony.finalproject.repository.ApartmentRepository;
 import com.compony.finalproject.repository.LandlordRepository;
 import com.compony.finalproject.repository.TenantRepository;
+import com.compony.finalproject.service.CrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

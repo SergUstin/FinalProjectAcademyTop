@@ -1,10 +1,11 @@
-package com.compony.finalproject.service;
+package com.compony.finalproject.service.impl;
 
 import com.compony.finalproject.dto.TenantDto;
 import com.compony.finalproject.mappers.TenantMapper;
 import com.compony.finalproject.model.Landlord;
 import com.compony.finalproject.model.Tenant;
 import com.compony.finalproject.repository.TenantRepository;
+import com.compony.finalproject.service.CrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class TenantServiceImpl implements CrudService<TenantDto>{
+public class TenantServiceImpl implements CrudService<TenantDto> {
 
     private final TenantRepository tenantRepository;
     private final TenantMapper tenantMapper;

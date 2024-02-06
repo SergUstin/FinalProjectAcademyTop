@@ -1,7 +1,7 @@
 package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.dto.TenantDto;
-import com.compony.finalproject.service.TenantServiceImpl;
+import com.compony.finalproject.service.impl.TenantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

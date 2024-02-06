@@ -10,6 +10,8 @@ public class LandlordMapper {
     public LandlordDto toDto(Landlord landlord) {
         LandlordDto landlordDto = new LandlordDto();
         landlordDto.setId(landlord.getId());
+        landlordDto.setUserName(landlord.getUserName());
+        landlordDto.setPassword(landlord.getPassword());
         landlordDto.setFullName(landlord.getFullName());
         landlordDto.setPhoneNumber(landlord.getPhoneNumber());
         landlordDto.setEmail(landlord.getEmail());
@@ -20,6 +22,8 @@ public class LandlordMapper {
     public Landlord toEntity(LandlordDto landlordDto) {
         Landlord landlord = new Landlord();
         landlord.setId(landlordDto.getId());
+        landlord.setUserName(landlordDto.getUserName());
+        landlord.setPassword(landlordDto.getPassword());
         landlord.setFullName(landlordDto.getFullName());
         landlord.setPhoneNumber(landlordDto.getPhoneNumber());
         landlord.setEmail(landlordDto.getEmail());

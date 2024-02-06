@@ -20,6 +20,11 @@ public class Tenant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @Column(name = "user_name")
+    String userName;
+
+    String password;
+
     @Column(name = "full_name")
     String fullName;
     @Column(name = "phone_number")

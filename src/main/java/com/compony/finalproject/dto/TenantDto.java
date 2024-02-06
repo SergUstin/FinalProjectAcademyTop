@@ -9,6 +9,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TenantDto {
     Integer id;
+    String userName;
+    String password;
     String fullName;
     String phoneNumber;
     String email;

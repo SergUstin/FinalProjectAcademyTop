@@ -1,13 +1,12 @@
 package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.dto.ApartmentDto;
-import com.compony.finalproject.service.ApartmentServiceImpl;
+import com.compony.finalproject.service.impl.ApartmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 
 @RestController

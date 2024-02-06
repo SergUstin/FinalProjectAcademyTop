@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма добавления пользователя</title>
+</head>
+<body>
+<h2>Регистрация арендодателя</h2>
+<form action="/register-landlord" method="post" th:object="${landlord}">
+    <div>
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" th:field="*{username}" required="required"/>
+    </div>
+    <div>
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" th:field="*{password}" required="required"/>
+    </div>
+    <div>
+        <label for="fullName">Имя полностью:</label>
+        <input type="text" id="fullName" placeholder="Фамилия Имя Отчество" name="fullName" th:field="*{fullName}"/>
+    </div>
+    <div>
+        <label for="phoneNumber">Номер телефона:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}"/>
+    </div>
+    <div>
+        <label for="email">Почта:</label>
+        <input type="email" id="email" placeholder="email" name="email" th:field="*{email}"/>
+    </div>
+    <div>
+        <button type="submit">Регистрация</button>
+    </div>
+</form>
+</body>
+</html>

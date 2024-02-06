@@ -1,9 +1,10 @@
-package com.compony.finalproject.service;
+package com.compony.finalproject.service.impl;
 
 import com.compony.finalproject.dto.LandlordDto;
 import com.compony.finalproject.mappers.LandlordMapper;
 import com.compony.finalproject.model.Landlord;
 import com.compony.finalproject.repository.LandlordRepository;
+import com.compony.finalproject.service.CrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
