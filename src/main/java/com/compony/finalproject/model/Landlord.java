@@ -9,9 +9,10 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
-@Entity
+
 @Setter
 @Getter
+@Entity
 @Table(name = "landlords")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Landlord {

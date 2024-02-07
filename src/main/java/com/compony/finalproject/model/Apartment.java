@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-@Entity
+
 @Setter
 @Getter
+@Entity
 @Table(name = "apartments")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Apartment {
@@ -28,3 +29,4 @@ public class Apartment {
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 }
+
