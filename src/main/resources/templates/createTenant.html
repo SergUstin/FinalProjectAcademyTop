@@ -1,10 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма добавления пользователя</title>
+    <style>
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #ccc;
+            background-color: #f9f9f9;
+        }
+
+        div {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-
+<h2>Регистрация арендатора</h2>
+<form action="/register-tenant" method="post" th:object="${tenant}">
+    <div>
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" placeholder="nickname" name="username" th:field="*{username}" required="required"/>
+    </div>
+    <div>
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" placeholder="не менее 8 символов" name="password" th:field="*{password}" required="required"/>
+    </div>
+    <div>
+        <label for="fullName">Имя полностью:</label>
+        <input type="text" id="fullName" placeholder="Фамилия Имя Отчество" name="fullName" th:field="*{fullName}"/>
+    </div>
+    <div>
+        <label for="phoneNumber">Номер телефона:</label>
+        <input type="text" id="phoneNumber" placeholder="8(999) 999-99-99" name="phoneNumber" th:field="*{phoneNumber}"/>
+    </div>
+    <div>
+        <label for="email">Почта:</label>
+        <input type="email" id="email" placeholder="email" name="email" th:field="*{email}"/>
+    </div>
+    <div>
+        <button type="submit">Регистрация</button>
+    </div>
+</form>
 </body>
 </html>

@@ -11,5 +11,5 @@ public class ApartmentDto {
     String city;
     String address;
     LandlordDto landlord;
-    TenantDto tenant;
+//    TenantDto tenant;
 }

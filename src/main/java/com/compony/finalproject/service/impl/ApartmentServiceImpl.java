@@ -1,6 +1,7 @@
 package com.compony.finalproject.service.impl;
 
 import com.compony.finalproject.dto.ApartmentDto;
+import com.compony.finalproject.dto.LandlordDto;
 import com.compony.finalproject.mappers.ApartmentMapper;
 import com.compony.finalproject.model.Apartment;
 import com.compony.finalproject.model.Landlord;
@@ -14,15 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class ApartmentServiceImpl implements CrudService<ApartmentDto> {
+public class ApartmentServiceImpl {
 
     private final ApartmentRepository apartmentRepository;
     private final ApartmentMapper apartmentMapper;
@@ -33,40 +31,69 @@ public class ApartmentServiceImpl implements CrudService<ApartmentDto> {
         this.apartmentMapper = apartmentMapper;
     }
 
-    @Override
-    public ApartmentDto getById(Integer id) {
-        return apartmentMapper.toDto(apartmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Landlord not found with id: " + id)));
-    }
+    public List<ApartmentDto> getAllApartmentsWithLandlordDetails() {
+        List<Apartment> apartments = apartmentRepository.findAll();
+        List<ApartmentDto> apartmentDtos = new ArrayList<>();
 
-    @Override
-    public List<ApartmentDto> getAll() {
-        return apartmentRepository.findAll().stream()
-                .map(apartmentMapper::toDto)
-                .collect(Collectors.toList());
-    }
+        for (Apartment apartment : apartments) {
+            Landlord landlord = apartment.getLandlord();
+            ApartmentDto apartmentDto = new ApartmentDto();
+            apartmentDto.setId(apartment.getId());
+            apartmentDto.setCity(apartment.getCity());
+            apartmentDto.setAddress(apartment.getAddress());
 
-    @Override
-    public ApartmentDto create(ApartmentDto item) {
-        Apartment apartment = apartmentMapper.toEntity(item);
-        apartment = apartmentRepository.save(apartment);
-        return apartmentMapper.toDto(apartment);
+            // Заполнение информации о владельце
+            if (landlord != null) {
+                LandlordDto landlordDto = new LandlordDto();
+                landlordDto.setFullName(landlord.getFullName());
+                landlordDto.setPhoneNumber(landlord.getPhoneNumber());
+                landlordDto.setEmail(landlord.getEmail());
+                landlordDto.setRating(landlord.getRating());
+                apartmentDto.setLandlord(landlordDto);
+            }
 
-    }
-
-    @Override
-    public ApartmentDto update(Integer id, ApartmentDto item) {
-        Apartment apartment = apartmentMapper.toEntity(item);
-        apartment.setId(id);
-        apartment = apartmentRepository.save(apartment);
-        return apartmentMapper.toDto(apartment);
-    }
-
-    @Override
-    public void delete(Integer id) {
-        if (!apartmentRepository.existsById(id)) {
-            throw new EntityNotFoundException("Landlord not found with id: " + id);
+            apartmentDtos.add(apartmentDto);
         }
-        apartmentRepository.deleteById(id);
+        return apartmentDtos;
     }
+
+    public void create(ApartmentDto dto) {
+    }
+
+//    @Override
+//    public ApartmentDto getById(Integer id) {
+//        return apartmentMapper.toDto(apartmentRepository.findById(id)
+//                .orElseThrow(() -> new EntityNotFoundException("Landlord not found with id: " + id)));
+//    }
+//
+//    @Override
+//    public List<ApartmentDto> getAll() {
+//        return apartmentRepository.findAll().stream()
+//                .map(apartmentMapper::toDto)
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public ApartmentDto create(ApartmentDto item) {
+//        Apartment apartment = apartmentMapper.toEntity(item);
+//        apartment = apartmentRepository.save(apartment);
+//        return apartmentMapper.toDto(apartment);
+//
+//    }
+//
+//    @Override
+//    public ApartmentDto update(Integer id, ApartmentDto item) {
+//        Apartment apartment = apartmentMapper.toEntity(item);
+//        apartment.setId(id);
+//        apartment = apartmentRepository.save(apartment);
+//        return apartmentMapper.toDto(apartment);
+//    }
+//
+//    @Override
+//    public void delete(Integer id) {
+//        if (!apartmentRepository.existsById(id)) {
+//            throw new EntityNotFoundException("Landlord not found with id: " + id);
+//        }
+//        apartmentRepository.deleteById(id);
+//    }
 }

@@ -100,12 +100,12 @@
 </head>
 <body>
 <h1>Список квартир</h1>
-<a th:href="@{/apartments/add}">Добавить объявление</a> <!-- Кнопка добавить объявление -->
+<a href="addApartment.html">Добавить объявление</a> <!-- Кнопка добавить объявление -->
 <div class="container">
     <div class="buttons">
-        <a href="#tenant" class="button">Зарегистрироваться как арендатор</a>
+        <a href="createTenant.html" class="button">Зарегистрироваться как арендатор</a>
         <a href="createLandLord.html" class="button">Зарегистрироваться как арендодатель</a>
-        <a href="#login" class="button" id="login">Войти</a>
+        <a href="login.html" class="button" id="login">Войти</a>
     </div>
 
     <table>
@@ -117,6 +117,7 @@
             <th>Телефон</th>
             <th>Email</th>
             <th>Рейтинг</th>
+            <th></th>
         </tr>
         <tr th:each="apartment : ${apartments}">
             <td><img src="http://dummyimage.com/120" /></td>
@@ -126,6 +127,7 @@
             <td th:text="${apartment.getLandlord().getPhoneNumber()}"></td>
             <td th:text="${apartment.getLandlord().getEmail()}"></td>
             <td th:text="${apartment.getLandlord().getRating()}"></td>
+            <td><a th:href="@{'/apartment/' + ${apartment.getId()}}">Редактировать</a></td>
         </tr>
     </table>
 </div>
