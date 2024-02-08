@@ -86,30 +86,6 @@
 </head>
 <body>
 <h1>Список квартир</h1>
-
-<form action="/accommodations/filter"  method="get">
-    <label for="city">Город:</label>
-    <input type="text" id="city" name="city">
-
-    <label for="country">Страна:</label>
-    <input type="text" id="country" name="country">
-
-    <label for="availableFrom">Доступно с:</label>
-    <input type="date" id="availableFrom" name="availableFrom">
-
-    <label for="availableTo">Доступно до:</label>
-    <input type="date" id="availableTo" name="availableTo">
-
-    <label for="price">Цена:</label>
-    <input type="number" id="price" name="price">
-
-    <label for="rating">Рейтинг:</label>
-    <input type="number" id="rating" name="rating">
-
-    <button id="filterButton" >Фильтровать</button>
-    <a href="/accommodations/create" id="addAccommodationLink">Добавить жилье</a>
-</form>
-
 <table>
     <tr>
         <th>Город</th>
@@ -118,7 +94,7 @@
         <th>Рейтинг</th>
         <th></th>
     </tr>
-    <tr th:each="accommodationDto : ${accommodationDtos}">
+    <tr th:each="accommodationDto : ${accommodation}">
         <td th:text="${accommodationDto.city}"></td>
         <td th:text="${accommodationDto.country}"></td>
         <td th:text="${accommodationDto.price}"></td>
@@ -162,6 +138,43 @@
 
         window.location.href = url;
     });
+
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     let filter = document.querySelector("#filterForm"); // получаем форму фильтра
+    //
+    //     filter.addEventListener("submit", (e) => {
+    //         e.preventDefault(); // отменяем отправку формы
+    //         let data = new FormData(filter); // получаем данные из формы
+    //
+    //         fetch('/accommodations', { // отправляем запрос на сервер для получения квартир
+    //             method: 'POST', // метод запроса
+    //             body: data, // данные формы
+    //         })
+    //             .then(response => response.json()) // преобразуем ответ сервера в json
+    //             .then(data => {
+    //                 let accommodationsList = document.querySelector("#accommodationsList tbody"); // получаем таблицу
+    //                 accommodationsList.innerHTML = ''; // удаляем предыдущие данные
+    //                 data.forEach((accommodation, index) => { // проходим по списку квартир
+    //                     // создаем строку таблицы и добавляем в нее данные о квартире
+    //                     accommodationsList.innerHTML += `
+    //                  <tr>
+    //                    <td>${index + 1}</td>
+    //                    <td>${accommodation.city}</td>
+    //                    <td>${accommodation.country}</td>
+    //                    <td>${accommodation.availableFrom}</td>
+    //                    <td>${accommodation.availableTo}</td>
+    //                    <td>${accommodation.price}</td>
+    //                    <td>${accommodation.rating}</td>
+    //                    <td>
+    //                      <button>Edit</button>  <!-- кнопка редактирования -->
+    //                      <button>Delete</button> <!-- кнопка удаления -->
+    //                    </td>
+    //                  </tr>
+    //                `;
+    //                 });
+    //             });
+    //     });
+    // });
 </script>
 </body>
 </html>
