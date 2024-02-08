@@ -3,14 +3,10 @@ package com.compony.finalproject.controllers;
 import com.compony.finalproject.dto.AccommodationDto;
 import com.compony.finalproject.service.AccommodationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -61,15 +57,8 @@ public class AccommodationController {
     public String filterAccommodations(
             @RequestParam(name = "city", required = false) String city,
             @RequestParam(name = "country", required = false) String country,
-            @RequestParam(name = "availableFrom", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate availableFrom,
-            @RequestParam(name = "availableTo", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate availableTo,
-            @RequestParam(name = "price", required = false) String price,
-            @RequestParam(name = "rating", required = false) Integer rating,
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size,
             Model model) {
-        Page<AccommodationDto> filteredAccommodations = accommodationService.searchAccommodation(city, country,
-                availableFrom, availableTo, price, rating, PageRequest.of(page, size));
+        List<AccommodationDto> filteredAccommodations = accommodationService.filterAccommodations(city, country);
         model.addAttribute("accommodations", filteredAccommodations);
         return "accommodations";
     }
