@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        .container {
+            width: 80%; /* Ширина контейнера */
+            margin: 0 auto; /* Авто-марджин для центрирования */
+            text-align: center; /* Центрирование содержимого */
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%; /* Ширина таблицы */
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Цвет фона для четных строк */
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffff; /* Цвет фона для нечетных строк */
+        }
+        .create-contact-button {
+            margin-top: 20px;
+            text-decoration: none;
+            color: black;
+            display: block; /* Превращаем ссылку в блочный элемент */
+            width: 200px; /* Задаем фиксированную ширину */
+            text-align: left; /* Выравниваем текст по левому краю */
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Users List</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Full name</th>
+            <th>City</th>
+            <th>Email</th>
+            <th>dateOfBirth</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="userDto : ${userDtos}">
+            <td th:text="${userDto.id}"></td>
+            <td th:text="${userDto.fullName}"></td>
+            <td th:text="${userDto.city}"></td>
+            <td th:text="${userDto.email}"></td>
+            <td th:text="${userDto.dateOfBirth}"></td>
+            <td><a th:href="@{/users/edit/{id}(id=${userDto.id})}">Edit</a></td>
+            <td><a th:href="@{/user/delete/{id}(id=${userDto.id})}">Delete</a></td>
+        </tr>
+    </table>
+
+    <br>
+    <a class="create-contact-button" href="/users/create">Create New User</a>
+</div>
+
+</body>
+</html>
