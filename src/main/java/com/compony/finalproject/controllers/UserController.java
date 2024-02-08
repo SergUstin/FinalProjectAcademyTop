@@ -1,7 +1,7 @@
 package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.model.User;
-import com.compony.finalproject.repository.UserRepository;
+import com.compony.finalproject.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,16 +13,16 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserServiceImpl service;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserServiceImpl service) {
+        this.service = service;
     }
 
     @GetMapping
     public String showUsers(Model model) {
-        List<User> user = userRepository.findAll();
+        List<User> user = service.getAll();
         model.addAttribute("users", user);
         return "users";
     }
@@ -35,13 +35,13 @@ public class UserController {
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute User user) {
-        userRepository.save(user);
+        service.create(user);
         return "redirect:/users";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow();
+        User user = service.getById(id);
         model.addAttribute("users", user);
         return "editUser";
     }
@@ -49,7 +49,7 @@ public class UserController {
     @PostMapping("/edit/{id}")
     public String editUser(@PathVariable Long id, @ModelAttribute User user) {
         user.setId(id);
-        userRepository.save(user);
+        service.create(user);
         return "redirect:/users";
     }
 }

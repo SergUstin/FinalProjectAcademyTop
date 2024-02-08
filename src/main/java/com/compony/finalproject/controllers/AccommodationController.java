@@ -1,7 +1,7 @@
 package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.model.Accommodation;
-import com.compony.finalproject.repository.AccommodationRepository;
+import com.compony.finalproject.service.impl.AccommodationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,16 +13,16 @@ import java.util.List;
 @RequestMapping("/accommodations")
 public class AccommodationController {
 
-    private final AccommodationRepository accommodationRepository;
+    private final AccommodationServiceImpl service;
 
     @Autowired
-    public AccommodationController(AccommodationRepository accommodationRepository) {
-        this.accommodationRepository = accommodationRepository;
+    public AccommodationController(AccommodationServiceImpl service) {
+        this.service = service;
     }
 
     @GetMapping
     public String showAccommodations(Model model) {
-        List<Accommodation> accommodation = accommodationRepository.findAll();
+        List<Accommodation> accommodation = service.getAll();
         model.addAttribute("accommodation", accommodation);
         return "accommodations";
     }
@@ -35,13 +35,13 @@ public class AccommodationController {
 
     @PostMapping("/create")
     public String createAccommodation(@ModelAttribute Accommodation accommodation) {
-        accommodationRepository.save(accommodation);
+        service.create(accommodation);
         return "redirect:/accommodations";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditAccommodation(@PathVariable Long id, Model model) {
-        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow();
+        Accommodation accommodation = service.getById(id);
         model.addAttribute("accommodation", accommodation);
         return "editAccommodation";
     }
@@ -49,7 +49,7 @@ public class AccommodationController {
     @PostMapping("/edit/{id}")
     public String editAccommodation(@PathVariable Long id, @ModelAttribute Accommodation accommodation) {
         accommodation.setId(id);
-        accommodationRepository.save(accommodation);
+        service.create(accommodation);
         return "redirect:/accommodations";
     }
 
@@ -59,7 +59,7 @@ public class AccommodationController {
             @RequestParam(name = "country", required = false) String country,
             @RequestParam(name = "price", required = false) String price,
             Model model) {
-        List<Accommodation> filteredAccommodations = accommodationRepository.findByCityContainingOrCountryContainingOrPrice(city, country, price);
+        List<Accommodation> filteredAccommodations = service.filterAccommodation(city, country, price);
         model.addAttribute("accommodations", filteredAccommodations);
         return "filteredAccommodations";
     }
