@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <style>
+        /* Стили для формы */
+        form {
+            margin: 0 auto; /* задаем автоматичесные отступы слева и справа, чтобы форма центрировалась */
+            width: 300px; /* ширина формы */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Стили для меток */
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Стили для текстовых полей */
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Стили для кнопки */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Стили для кнопки при наведении */
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<form action="/bookings" th:object="${booking}" method="post">
+    <label for="startDate">Дата заезда:</label>
+    <input type="text" id="startDate" th:field="*{startDate}"/>
+
+    <label for="endDate">Дата отъезда:</label>
+    <input type="text" id="endDate" th:field="*{endDate}"/>
+
+    <button type="submit">Забронировать</button>
+</form>
+</form>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        $("#bookingForm").submit(function(event) {
+            event.preventDefault();
+            var formData = {
+                startDate: $("#startDate").val(),
+                endDate: $("#endDate").val()
+            };
+
+            $.post({
+                url: "/checkAvailability",
+                data: JSON.stringify(formData),
+                contentType: "application/json"
+            })
+                .done(function(response) {
+                    if (response.available) {
+                        alert("Даты доступны для бронирования! Оформляем вашу заявку.");
+                        // Здесь можно добавить код для отправки формы на сервер для окончательного бронирования
+                    } else {
+                        alert("Извините, эти даты уже заняты. Пожалуйста, выберите другие даты.");
+                    }
+                })
+                .fail(function() {
+                    alert("Произошла ошибка при проверке доступности дат. Пожалуйста, попробуйте снова.");
+                });
+        });
+    });
+</script>
+</body>
+</html>

@@ -15,6 +15,7 @@
             <column name="username" type="varchar(255)"/>
             <column name="password" type="varchar(255)"/>
             <column name="date_of_birth" type="varchar(255)"/>
+            <column name="rating" type="int"/>
             <column name="email" type="varchar(255)"/>
         </createTable>
     </changeSet>
@@ -30,6 +31,9 @@
             <column name="available_to" type="date"/>
             <column name="price" type="varchar(255)"/>
             <column name="rating" type="int"/>
+            <column name="user_id" type="int">
+                <constraints foreignKeyName="accommodations_users_fk" references="users(id)"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

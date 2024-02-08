@@ -22,4 +22,8 @@ public class Accommodation {
     private LocalDate availableTo;
     private String price;
     private Integer rating;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

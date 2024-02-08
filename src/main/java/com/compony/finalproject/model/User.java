@@ -21,5 +21,6 @@ public class User {
     private String password;
     @Column(name = "date_of_birth")
     private String dateOfBirth;
+    private Integer rating;
     private String email;
 }

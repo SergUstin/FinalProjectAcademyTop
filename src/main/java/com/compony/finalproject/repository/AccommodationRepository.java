@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long>,
         JpaSpecificationExecutor<Accommodation> {
-    List<Accommodation> findByCityOrCountry(String city, String country);
+    List<Accommodation> findByCityContainingOrCountryContainingOrPrice(String city, String country, String price);
 }

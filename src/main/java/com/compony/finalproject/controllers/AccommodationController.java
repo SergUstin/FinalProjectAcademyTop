@@ -57,24 +57,10 @@ public class AccommodationController {
     public String filterAccommodations(
             @RequestParam(name = "city", required = false) String city,
             @RequestParam(name = "country", required = false) String country,
+            @RequestParam(name = "price", required = false) String price,
             Model model) {
-        List<Accommodation> filteredAccommodations = accommodationRepository.findByCityOrCountry(city, country);
+        List<Accommodation> filteredAccommodations = accommodationRepository.findByCityContainingOrCountryContainingOrPrice(city, country, price);
         model.addAttribute("accommodations", filteredAccommodations);
         return "filteredAccommodations";
     }
-
-//    @RequestMapping(value = "/accommodations", method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<AccommodationDto>> getAllAccommodations() {
-//        List<AccommodationDto> list = accommodationServiceImpl.getAll();
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/accommodations", method = RequestMethod.POST,
-//            produces = MediaType.APPLICATION_JSON_VALUE,
-//            consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<AccommodationDto>> getFilteredAccommodations(@RequestBody Filter filter) {
-//        List<AccommodationDto> list = accommodationServiceImpl.getFilteredAccommodations(filter);
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
 }
