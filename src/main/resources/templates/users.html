@@ -50,7 +50,7 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <tr th:each="userDto : ${userDtos}">
+        <tr th:each="userDto : ${users}">
             <td th:text="${userDto.id}"></td>
             <td th:text="${userDto.fullName}"></td>
             <td th:text="${userDto.city}"></td>

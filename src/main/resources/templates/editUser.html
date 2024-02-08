@@ -50,7 +50,7 @@
     </style>
 </head>
 <body>
-<form th:action="@{/users/edit/{id}(id=${userDto.id})}" method="post" th:object="${userDto}">
+<form th:action="@{/users/edit/{id}(id=${users.id})}" method="post" th:object="${users}">
     <h2>Edit User</h2>
     <label for="fullName">Full Name:</label>
     <input type="text" id="fullName" th:field="*{fullName}" />

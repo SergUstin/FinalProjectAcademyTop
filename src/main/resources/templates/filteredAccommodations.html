@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,8 +53,8 @@
         }
 
         table tr td:last-child {
-             width: 1%; /* Устанавливаем ширину последнего столбца */
-             white-space: nowrap; /* Предотвращаем перенос содержимого */
+            width: 1%; /* Устанавливаем ширину последнего столбца */
+            white-space: nowrap; /* Предотвращаем перенос содержимого */
         }
 
         th, td {
@@ -86,7 +86,6 @@
 </head>
 <body>
 <h1>Список квартир</h1>
-
 <form action="/accommodations/filter"  method="get">
     <label for="city">Город:</label>
     <input type="text" id="city" name="city">
@@ -109,24 +108,25 @@
     <button id="filterButton" >Фильтровать</button>
     <a href="/accommodations/create" id="addAccommodationLink">Добавить жилье</a>
 </form>
-
 <table>
     <tr>
         <th>Город</th>
         <th>Страна</th>
         <th>Цена</th>
         <th>Рейтинг</th>
-<!--        <th></th>-->
+        <th></th>
     </tr>
-    <tr th:each="accommodationDto : ${accommodation}">
+    <tr th:each="accommodationDto : ${accommodations}">
         <td th:text="${accommodationDto.city}"></td>
         <td th:text="${accommodationDto.country}"></td>
         <td th:text="${accommodationDto.price}"></td>
         <td th:text="${accommodationDto.rating}"></td>
-<!--        <td><a th:href="@{/accommodations/edit/{id}(id=${accommodationDto.id})}">Редактировать</a></td>-->
+        <td><a th:href="@{/accommodations/edit/{id}(id=${accommodationDto.id})}">Забронировать</a></td>
     </tr>
 </table>
+
 <script>
+
     document.getElementById("filterButton").addEventListener("click", function(e) {
         e.preventDefault();
         const city = document.getElementById("city").value;
@@ -162,43 +162,7 @@
 
         window.location.href = url;
     });
-
-    // document.addEventListener("DOMContentLoaded", () => {
-    //     let filter = document.querySelector("#filterForm"); // получаем форму фильтра
-    //
-    //     filter.addEventListener("submit", (e) => {
-    //         e.preventDefault(); // отменяем отправку формы
-    //         let data = new FormData(filter); // получаем данные из формы
-    //
-    //         fetch('/accommodations', { // отправляем запрос на сервер для получения квартир
-    //             method: 'POST', // метод запроса
-    //             body: data, // данные формы
-    //         })
-    //             .then(response => response.json()) // преобразуем ответ сервера в json
-    //             .then(data => {
-    //                 let accommodationsList = document.querySelector("#accommodationsList tbody"); // получаем таблицу
-    //                 accommodationsList.innerHTML = ''; // удаляем предыдущие данные
-    //                 data.forEach((accommodation, index) => { // проходим по списку квартир
-    //                     // создаем строку таблицы и добавляем в нее данные о квартире
-    //                     accommodationsList.innerHTML += `
-    //                  <tr>
-    //                    <td>${index + 1}</td>
-    //                    <td>${accommodation.city}</td>
-    //                    <td>${accommodation.country}</td>
-    //                    <td>${accommodation.availableFrom}</td>
-    //                    <td>${accommodation.availableTo}</td>
-    //                    <td>${accommodation.price}</td>
-    //                    <td>${accommodation.rating}</td>
-    //                    <td>
-    //                      <button>Edit</button>  <!-- кнопка редактирования -->
-    //                      <button>Delete</button> <!-- кнопка удаления -->
-    //                    </td>
-    //                  </tr>
-    //                `;
-    //                 });
-    //             });
-    //     });
-    // });
 </script>
+
 </body>
 </html>

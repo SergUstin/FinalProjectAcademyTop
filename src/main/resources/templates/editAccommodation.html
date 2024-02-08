@@ -50,7 +50,7 @@
     </style>
 </head>
 <body>
-<form th:action="@{/accommodations/edit/{id}(id=${accommodationDto.id})}" method="post" th:object="${accommodationDto}">
+<form th:action="@{/accommodations/edit/{id}(id=${accommodation.id})}" method="post" th:object="${accommodation}">
     <h2>Edit accommodation</h2>
     <label for="fullName">City:</label>
     <input type="text" id="fullName" th:field="*{city}" />
