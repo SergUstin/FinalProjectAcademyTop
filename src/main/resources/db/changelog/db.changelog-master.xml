@@ -31,9 +31,8 @@
             <column name="available_to" type="date"/>
             <column name="price" type="varchar(255)"/>
             <column name="rating" type="int"/>
-            <column name="user_id" type="int">
-                <constraints foreignKeyName="accommodations_users_fk" references="users(id)"/>
-            </column>
+            <column name="user_id" type="int"/>
+            <column name="landlord_id" type="int"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

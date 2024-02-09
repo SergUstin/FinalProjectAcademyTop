@@ -23,7 +23,10 @@ public class Accommodation {
     private String price;
     private Integer rating;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "landlord_id")
+    private Long landlordId;
 }

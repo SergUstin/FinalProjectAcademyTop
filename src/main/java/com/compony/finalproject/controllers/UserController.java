@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("/create")
     public String createUser(@ModelAttribute User user) {
         service.create(user);
-        return "redirect:/users";
+        return "redirect:/accommodations";
     }
 
     @GetMapping("/edit/{id}")

@@ -66,7 +66,7 @@
             background-color: #f2f2f2;
         }
 
-        #addAccommodationLink, #filterButton {
+        .btn, .btn_register, #filterButton {
             padding: 10px 5px;
             background-color: #008080;
             color: #fff;
@@ -75,17 +75,26 @@
             cursor: pointer;
             border-radius: 5px;
             text-decoration: none;
-            display: inline-block;
+            display: block;
             font-size: 14px;
         }
 
-        #addAccommodationLink:hover, #filterButton:hover {
+        .btn_register {
+            position: absolute;  /* Устанавливаем позиционирование */
+            top: 10px;  /* Отступ сверху */
+            right: 70px;
+        }
+
+
+        .btn:hover, #filterButton:hover {
             background-color: #005757;
         }
+
     </style>
 </head>
 <body>
 <h1>Список квартир</h1>
+<a href="/users/create"  class="btn_register" >Зарегистрироваться</a>
 
 <form action="/accommodations/filter"  method="get">
     <label for="city">Город:</label>
@@ -106,8 +115,9 @@
     <label for="rating">Рейтинг:</label>
     <input type="number" id="rating" name="rating">
 
+
     <button id="filterButton" >Фильтровать</button>
-    <a href="/accommodations/create" id="addAccommodationLink">Добавить жилье</a>
+    <a href="/accommodations/create" class="btn" id="addAccommodationLink">Добавить жилье</a>
 </form>
 
 <table>
@@ -123,7 +133,7 @@
         <td th:text="${accommodationDto.country}"></td>
         <td th:text="${accommodationDto.price}"></td>
         <td th:text="${accommodationDto.rating}"></td>
-        <td><a th:href="@{/accommodations/edit/{id}(id=${accommodationDto.id})}">Забронировать</a></td>
+        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Забронировать</a></td>
     </tr>
 </table>
 <script>

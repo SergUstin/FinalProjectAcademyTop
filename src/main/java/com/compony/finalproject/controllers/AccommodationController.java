@@ -2,11 +2,14 @@ package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.model.Accommodation;
 import com.compony.finalproject.service.impl.AccommodationServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -62,5 +65,24 @@ public class AccommodationController {
         List<Accommodation> filteredAccommodations = service.filterAccommodation(city, country, price);
         model.addAttribute("accommodations", filteredAccommodations);
         return "filteredAccommodations";
+    }
+
+    @GetMapping("/booking/{id}")
+    public String showBookingForm(@PathVariable Long id, Model model) {
+        Accommodation accommodation = service.getById(id);
+        model.addAttribute("accommodation", accommodation);
+        return "toBook";
+    }
+
+    @PostMapping("/booking/{id}")
+    public String toBookAccommodation(
+            @PathVariable Long id,
+            @RequestParam(name = "availableFrom") LocalDate availableFrom,
+            @RequestParam(name = "availableTo") LocalDate availableTo,
+            Model model) {
+
+        service.book(availableFrom, availableTo, id);
+        model.addAttribute("message", "Размещение успешно забронировано!");
+        return "redirect:/accommodations";
     }
 }
