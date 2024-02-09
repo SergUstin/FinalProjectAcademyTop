@@ -33,4 +33,31 @@ public class UserServiceImpl implements CRUDService<User> {
     public void create(User item) {
         userRepository.save(item);
     }
+
+    public Long getUserIdByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        return user.getId();
+    }
+
+//    public double calculateAverageRating(Long id) {
+//        // Получить все оценки для данного жилья
+//        List<Reviews> reviews = reviewsRepository.findByAccommodationId(id);
+//
+//        // Если оценок нет, вернуть 0
+//        if (reviews.isEmpty()) {
+//            return 0;
+//        }
+//
+//        // Суммировать все оценки
+//        double sum = 0;
+//        for (Reviews review : reviews) {
+//            sum += review.getRating();
+//        }
+//
+//        // Вычислить среднее значение оценок
+//        double averageRating = sum / reviews.size();
+//
+//        // Округлить среднее значение до двух знаков после запятой
+//        return Math.round(averageRating * 100) / 100.0;
+//    }
 }

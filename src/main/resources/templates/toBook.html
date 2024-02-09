@@ -54,6 +54,9 @@
     <h1>Введите даты бронирования</h1>
     <input type="hidden" name="id" th:value="${accommodation.id}"/>
 
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" />
+
     <label for="startDate">Дата заезда:</label>
     <input type="date" id="startDate" name="availableFrom" th:field="*{availableFrom}"/>
 
@@ -62,34 +65,5 @@
 
     <button type="submit">Забронировать</button>
 </form>
-<script>
-    $(document).ready(function() {
-        $("#bookingForm").submit(function(event) {
-            event.preventDefault();
-            const formData = {
-                startDate: $("#startDate").val(),
-                endDate: $("#endDate").val()
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "/checkAvailability",
-                data: JSON.stringify(formData),
-                contentType: "application/json",
-                success: function(response) {
-                    if (response.available) {
-                        alert("Даты доступны для бронирования! Оформляем вашу заявку.");
-                        $("#bookingForm").unbind('submit').submit(); // Если даты доступны, отправляем форму на сервер
-                    } else {
-                        alert("Извините, эти даты уже заняты. Пожалуйста, выберите другие даты.");
-                    }
-                },
-                error: function() {
-                    alert("Произошла ошибка при проверке доступности дат. Пожалуйста, попробуйте еще раз.");
-                }
-            });
-        });
-    });
-</script>
 </body>
 </html>

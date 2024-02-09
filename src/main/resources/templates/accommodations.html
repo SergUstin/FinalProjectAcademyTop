@@ -126,7 +126,7 @@
         <th>Страна</th>
         <th>Цена</th>
         <th>Рейтинг</th>
-<!--        <th></th>-->
+        <th></th>
     </tr>
     <tr th:each="accommodationDto : ${accommodation}">
         <td th:text="${accommodationDto.city}"></td>
@@ -134,6 +134,9 @@
         <td th:text="${accommodationDto.price}"></td>
         <td th:text="${accommodationDto.rating}"></td>
         <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Забронировать</a></td>
+        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Оценить жилье</a></td>
+        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Оценить владельца</a></td>
+        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Оценить арендатора</a></td>
     </tr>
 </table>
 <script>

@@ -2,9 +2,8 @@ package com.compony.finalproject.controllers;
 
 import com.compony.finalproject.model.Accommodation;
 import com.compony.finalproject.service.impl.AccommodationServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
+import com.compony.finalproject.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +15,19 @@ import java.util.List;
 @RequestMapping("/accommodations")
 public class AccommodationController {
 
-    private final AccommodationServiceImpl service;
+    private final AccommodationServiceImpl accommodationService;
+    private final UserServiceImpl userService;
+
 
     @Autowired
-    public AccommodationController(AccommodationServiceImpl service) {
-        this.service = service;
+    public AccommodationController(AccommodationServiceImpl accommodationService, UserServiceImpl userService) {
+        this.accommodationService = accommodationService;
+        this.userService = userService;
     }
 
     @GetMapping
     public String showAccommodations(Model model) {
-        List<Accommodation> accommodation = service.getAll();
+        List<Accommodation> accommodation = accommodationService.getAll();
         model.addAttribute("accommodation", accommodation);
         return "accommodations";
     }
@@ -37,14 +39,16 @@ public class AccommodationController {
     }
 
     @PostMapping("/create")
-    public String createAccommodation(@ModelAttribute Accommodation accommodation) {
-        service.create(accommodation);
+    public String createAccommodation(@ModelAttribute Accommodation accommodation,
+                                      @RequestParam(name = "username") String username) {
+        Long userId = userService.getUserIdByUsername(username);
+        accommodationService.create(accommodation, userId);
         return "redirect:/accommodations";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditAccommodation(@PathVariable Long id, Model model) {
-        Accommodation accommodation = service.getById(id);
+        Accommodation accommodation = accommodationService.getById(id);
         model.addAttribute("accommodation", accommodation);
         return "editAccommodation";
     }
@@ -52,7 +56,7 @@ public class AccommodationController {
     @PostMapping("/edit/{id}")
     public String editAccommodation(@PathVariable Long id, @ModelAttribute Accommodation accommodation) {
         accommodation.setId(id);
-        service.create(accommodation);
+        accommodationService.create(accommodation);
         return "redirect:/accommodations";
     }
 
@@ -62,14 +66,14 @@ public class AccommodationController {
             @RequestParam(name = "country", required = false) String country,
             @RequestParam(name = "price", required = false) String price,
             Model model) {
-        List<Accommodation> filteredAccommodations = service.filterAccommodation(city, country, price);
+        List<Accommodation> filteredAccommodations = accommodationService.filterAccommodation(city, country, price);
         model.addAttribute("accommodations", filteredAccommodations);
         return "filteredAccommodations";
     }
 
     @GetMapping("/booking/{id}")
     public String showBookingForm(@PathVariable Long id, Model model) {
-        Accommodation accommodation = service.getById(id);
+        Accommodation accommodation = accommodationService.getById(id);
         model.addAttribute("accommodation", accommodation);
         return "toBook";
     }
@@ -79,10 +83,14 @@ public class AccommodationController {
             @PathVariable Long id,
             @RequestParam(name = "availableFrom") LocalDate availableFrom,
             @RequestParam(name = "availableTo") LocalDate availableTo,
+            @RequestParam(name = "username") String username,
             Model model) {
-
-        service.book(availableFrom, availableTo, id);
+        Long userId = userService.getUserIdByUsername(username);
+        accommodationService.book(availableFrom, availableTo, id, userId);
         model.addAttribute("message", "Размещение успешно забронировано!");
         return "redirect:/accommodations";
     }
+
+
+
 }

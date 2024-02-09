@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head lang="ru">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create accommodations</title>
+    <title>Create User</title>
     <style>
         /* Стили для формы */
         form {
@@ -50,21 +50,17 @@
     </style>
 </head>
 <body>
-<form action="/accommodations/create" method="post" th:object="${accommodation}">
-    <h2>Create accommodations</h2>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" />
-    <br/>
-    <label for="fullName">City:</label>
-    <input type="text" id="fullName" th:field="*{city}" />
-    <br/>
-    <label for="city">Country:</label>
-    <input type="text" id="city" th:field="*{country}" />
-    <br/>
-    <label for="country">Price:</label>
-    <input type="text" id="country" th:field="*{price}" />
-    <br/>
-    <button type="submit">Save</button>
+<form id="ratingForm" th:action="@{/accommodations/booking/{id}(id=${accommodation.id})}" th:object="${accommodation}" method="post">
+    <h1>Введите даты бронирования</h1>
+    <input type="hidden" name="id" th:value="${accommodation.id}"/>
+
+    <label for="startDate">Дата заезда:</label>
+    <input type="date" id="startDate" name="availableFrom" th:field="*{availableFrom}"/>
+
+    <label for="endDate">Дата отъезда:</label>
+    <input type="date" id="endDate" name="availableTo" th:field="*{availableTo}"/>
+
+    <button type="submit">Забронировать</button>
 </form>
 </body>
 </html>
