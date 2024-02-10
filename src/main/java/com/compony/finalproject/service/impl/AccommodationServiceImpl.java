@@ -73,26 +73,43 @@ public class AccommodationServiceImpl implements CRUDService<Accommodation> {
         return userAvailableFrom.isEqual(accommodation.getAvailableTo()) || userAvailableTo.isEqual(accommodation.getAvailableFrom());
     }
 
-//    public double calculateAverageRating(Long id) {
-//        // Получить все оценки для данного жилья
-//        List<Reviews> reviews = reviewsRepository.findByAccommodationId(id);
-//
-//        // Если оценок нет, вернуть 0
-//        if (reviews.isEmpty()) {
-//            return 0;
-//        }
-//
-//        // Суммировать все оценки
-//        double sum = 0;
-//        for (Reviews review : reviews) {
-//            sum += review.getRating();
-//        }
-//
-//        // Вычислить среднее значение оценок
-//        double averageRating = sum / reviews.size();
-//
-//        // Округлить среднее значение до двух знаков после запятой
-//        return Math.round(averageRating * 100) / 100.0;
-//    }
+    public double addRatingAndUpdateAverage(Long accommodationId, double newRating) {
+        Accommodation accommodation = accommodationRepository.findById(accommodationId)
+                .orElseThrow(() -> new IllegalArgumentException("Жилье с указанным идентификатором не найдено"));
+
+        // Проверить, находится ли новая оценка в диапазоне от 1 до 5.
+        if (newRating < 1 || newRating > 5) {
+            throw new IllegalArgumentException("Оценка должна быть в диапазоне от 1 до 5");
+        }
+
+        // Увеличить количество оценок на 1.
+        accommodation.incrementNumberOfRatings();
+
+        long countRatings = accommodation.getNumberOfRatings();
+
+        // Проверить, существует ли уже рейтинг жилья.
+        Double currentRating = accommodation.getRating();
+        if (currentRating == null || currentRating == 0.0) {
+            // Если рейтинг жилья еще не установлен или равен 0, то просто присвоить ему значение новой оценки.
+            accommodation.setRating(newRating);
+        } else {
+            // Если рейтинг жилья уже существует, то рассчитать новую среднюю оценку.
+            double newAverageRating = ((currentRating * (countRatings - 1)) + newRating) / countRatings;
+
+            // Округляем среднюю оценку до двух знаков после запятой
+            newAverageRating = Math.round(newAverageRating * 100.0) / 100.0;
+
+            accommodation.setRating(newAverageRating);
+        }
+
+        accommodationRepository.save(accommodation);
+
+        return accommodation.getRating();
+    }
+
+
+
+
+
 
 }

@@ -3,7 +3,7 @@
 <head lang="ru">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
+    <title>Оцените жилье</title>
     <style>
         /* Стили для формы */
         form {
@@ -32,6 +32,10 @@
             box-sizing: border-box;
         }
 
+        input[type="number"] {
+            width: 100px;
+        }
+
         /* Стили для кнопки */
         button {
             background-color: #4CAF50;
@@ -50,17 +54,27 @@
     </style>
 </head>
 <body>
-<form id="ratingForm" th:action="@{/accommodations/booking/{id}(id=${accommodation.id})}" th:object="${accommodation}" method="post">
-    <h1>Введите даты бронирования</h1>
+<form id="ratingForm" th:action="@{/accommodations/setRating/{id}(id=${accommodation.id})}" th:object="${accommodation}" method="post">
+    <h1>Оцените жилье</h1>
     <input type="hidden" name="id" th:value="${accommodation.id}"/>
 
-    <label for="startDate">Дата заезда:</label>
-    <input type="date" id="startDate" name="availableFrom" th:field="*{availableFrom}"/>
-
-    <label for="endDate">Дата отъезда:</label>
-    <input type="date" id="endDate" name="availableTo" th:field="*{availableTo}"/>
-
-    <button type="submit">Забронировать</button>
+    <label for="rating">Поставьте оценку (от 1 до 5):</label>
+    <input type="number" id="rating" name="rating" min="1" max="5" th:field="*{rating}"/>
+    <button type="submit">Оценить</button>
 </form>
+
+
+<script>
+    const ratingInput = document.getElementById('rating');
+
+    ratingInput.addEventListener('input', () => {
+        const rating = parseInt(ratingInput.value);
+
+        if (rating < 1 || rating > 5) {
+            alert('Введите число от 1 до 5');
+            ratingInput.value = '';
+        }
+    });
+</script>
 </body>
 </html>

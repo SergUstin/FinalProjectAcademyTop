@@ -52,4 +52,17 @@ public class UserController {
         service.create(user);
         return "redirect:/users";
     }
+
+    @PostMapping("/setRatingByFullName")
+    public String setRatingByFullName(@RequestParam(name = "fullName") String fullName,
+                                      @RequestParam(name = "rating") double rating) {
+        // Call the service to set the user's rating
+        service.setRatingByFullName(fullName, rating);
+
+        // Вызвать сервис для установки рейтинга пользователя
+//        service.setRatingAndHandleBlock(fullName, rating);
+
+        // Redirect the user back to the page they came from
+        return "redirect:/accommodations";
+    }
 }

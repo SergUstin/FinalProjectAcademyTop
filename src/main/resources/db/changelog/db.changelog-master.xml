@@ -17,6 +17,8 @@
             <column name="date_of_birth" type="varchar(255)"/>
             <column name="rating" type="int"/>
             <column name="email" type="varchar(255)"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="number_of_rating" type="BIGINT"/>
         </createTable>
     </changeSet>
 
@@ -33,6 +35,7 @@
             <column name="rating" type="int"/>
             <column name="user_id" type="int"/>
             <column name="landlord_id" type="int"/>
+            <column name="number_of_rating" type="BIGINT"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -90,6 +90,18 @@
             background-color: #005757;
         }
 
+        .btn_wrapper {
+            float: right;
+        }
+
+        .btn + br:first-child {
+            margin-top: 10px;
+        }
+
+        .btn + br {
+            margin-bottom: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -134,11 +146,26 @@
         <td th:text="${accommodationDto.price}"></td>
         <td th:text="${accommodationDto.rating}"></td>
         <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Забронировать</a></td>
-        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Оценить жилье</a></td>
-        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Оценить владельца</a></td>
-        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Оценить арендатора</a></td>
+        <td><a th:href="@{/accommodations/setRating/{id}(id=${accommodationDto.id})}">Оценить жилье</a></td>
+<!--        <td><a th:href="@{/users/setRating/{id}(id=${accommodationDto.id})}">Оценить владельца</a></td>-->
+<!--        <td><a th:href="@{/users/setRating/{id}(id=${accommodationDto.id})}">Оценить арендатора</a></td>-->
     </tr>
 </table>
+
+<div class="btn_wrapper">
+    <br>
+    <form action="/users/setRatingByFullName" method="post">
+        <input type="text" name="fullName" placeholder="Введите полное имя владельца">
+        <input type="number" name="rating" placeholder="Оценка">
+        <input type="submit" value="Оценить владельца">
+    </form>
+    <br>
+    <form action="/users/setRatingByFullName" method="post">
+        <input type="text" name="fullName" placeholder="Введите полное имя владельца">
+        <input type="number" name="rating" placeholder="Оценка">
+        <input type="submit" value="Оценить арендатора">
+    </form>
+</div>
 <script>
     document.getElementById("filterButton").addEventListener("click", function(e) {
         e.preventDefault();
@@ -175,43 +202,6 @@
 
         window.location.href = url;
     });
-
-    // document.addEventListener("DOMContentLoaded", () => {
-    //     let filter = document.querySelector("#filterForm"); // получаем форму фильтра
-    //
-    //     filter.addEventListener("submit", (e) => {
-    //         e.preventDefault(); // отменяем отправку формы
-    //         let data = new FormData(filter); // получаем данные из формы
-    //
-    //         fetch('/accommodations', { // отправляем запрос на сервер для получения квартир
-    //             method: 'POST', // метод запроса
-    //             body: data, // данные формы
-    //         })
-    //             .then(response => response.json()) // преобразуем ответ сервера в json
-    //             .then(data => {
-    //                 let accommodationsList = document.querySelector("#accommodationsList tbody"); // получаем таблицу
-    //                 accommodationsList.innerHTML = ''; // удаляем предыдущие данные
-    //                 data.forEach((accommodation, index) => { // проходим по списку квартир
-    //                     // создаем строку таблицы и добавляем в нее данные о квартире
-    //                     accommodationsList.innerHTML += `
-    //                  <tr>
-    //                    <td>${index + 1}</td>
-    //                    <td>${accommodation.city}</td>
-    //                    <td>${accommodation.country}</td>
-    //                    <td>${accommodation.availableFrom}</td>
-    //                    <td>${accommodation.availableTo}</td>
-    //                    <td>${accommodation.price}</td>
-    //                    <td>${accommodation.rating}</td>
-    //                    <td>
-    //                      <button>Edit</button>  <!-- кнопка редактирования -->
-    //                      <button>Delete</button> <!-- кнопка удаления -->
-    //                    </td>
-    //                  </tr>
-    //                `;
-    //                 });
-    //             });
-    //     });
-    // });
 </script>
 </body>
 </html>

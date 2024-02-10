@@ -91,6 +91,20 @@ public class AccommodationController {
         return "redirect:/accommodations";
     }
 
+    @GetMapping("/setRating/{id}")
+    public String showRatingForm(@PathVariable Long id, Model model) {
+        Accommodation accommodation = accommodationService.getById(id);
+        model.addAttribute("accommodation", accommodation);
+        return "giveRatingAccommodation";
+    }
+
+    @PostMapping("/setRating/{id}")
+    public String setRating(@PathVariable Long id, @RequestParam Double rating, Model model) {
+        double newAverageRating = accommodationService.addRatingAndUpdateAverage(id, rating);
+        model.addAttribute("accommodation", newAverageRating);
+        return "redirect:/accommodations";
+    }
+
 
 
 }

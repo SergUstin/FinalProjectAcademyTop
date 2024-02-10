@@ -21,6 +21,14 @@ public class User {
     private String password;
     @Column(name = "date_of_birth")
     private String dateOfBirth;
-    private Integer rating;
+    private Double rating = 0.0;
+    @Column(name = "number_of_rating")
+    private Long numberOfRatings = 0L;
     private String email;
+    private String status;
+
+    @Transient
+    public void incrementNumberOfRatings() {
+        this.numberOfRatings++;
+    }
 }
