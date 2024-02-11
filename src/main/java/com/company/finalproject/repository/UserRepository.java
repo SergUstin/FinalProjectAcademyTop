@@ -1,6 +1,6 @@
-package com.compony.finalproject.repository;
+package com.company.finalproject.repository;
 
-import com.compony.finalproject.model.User;
+import com.company.finalproject.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

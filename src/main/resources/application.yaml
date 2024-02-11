@@ -13,3 +13,15 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.xml
     enabled: true
     drop-first: true
+
+
+#Customer logging app
+logging:
+  level:
+    root: info
+    com.company.finalproject: debug
+  pattern:
+    #    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+  file:
+    name: log/logging.log

@@ -1,4 +1,4 @@
-package com.compony.finalproject.service;
+package com.company.finalproject.service;
 
 import java.util.List;
 
@@ -30,4 +30,13 @@ public interface CRUDService<T> {
      * @param item объект, который необходимо создать
      */
     void create(T item);
+
+    /**
+     * Редактирует элемент с указанным идентификатором.
+     *
+     * @param <T> тип элемента
+     * @param id идентификатор элемента, который нужно отредактировать
+     * @param item новое значение элемента
+     */
+    void edit(Long id, T item);
 }

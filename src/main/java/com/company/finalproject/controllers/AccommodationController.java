@@ -1,8 +1,8 @@
-package com.compony.finalproject.controllers;
+package com.company.finalproject.controllers;
 
-import com.compony.finalproject.model.Accommodation;
-import com.compony.finalproject.service.impl.AccommodationServiceImpl;
-import com.compony.finalproject.service.impl.UserServiceImpl;
+import com.company.finalproject.model.Accommodation;
+import com.company.finalproject.service.impl.AccommodationServiceImpl;
+import com.company.finalproject.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +42,7 @@ public class AccommodationController {
     public String createAccommodation(@ModelAttribute Accommodation accommodation,
                                       @RequestParam(name = "username") String username) {
         Long userId = userService.getUserIdByUsername(username);
-        accommodationService.create(accommodation, userId);
+        accommodationService.createAndAddLandlordId(accommodation, userId);
         return "redirect:/accommodations";
     }
 
@@ -55,8 +55,7 @@ public class AccommodationController {
 
     @PostMapping("/edit/{id}")
     public String editAccommodation(@PathVariable Long id, @ModelAttribute Accommodation accommodation) {
-        accommodation.setId(id);
-        accommodationService.create(accommodation);
+        accommodationService.edit(id, accommodation);
         return "redirect:/accommodations";
     }
 
@@ -99,8 +98,8 @@ public class AccommodationController {
     }
 
     @PostMapping("/setRating/{id}")
-    public String setRating(@PathVariable Long id, @RequestParam Double rating, Model model) {
-        double newAverageRating = accommodationService.addRatingAndUpdateAverage(id, rating);
+    public String setRating(@PathVariable Long id, @RequestParam Integer rating, Model model) {
+        Integer newAverageRating = accommodationService.addRatingAndUpdateAverage(id, rating);
         model.addAttribute("accommodation", newAverageRating);
         return "redirect:/accommodations";
     }

@@ -1,8 +1,9 @@
-package com.compony.finalproject.controllers;
+package com.company.finalproject.controllers;
 
-import com.compony.finalproject.model.User;
-import com.compony.finalproject.service.impl.UserServiceImpl;
+import com.company.finalproject.model.User;
+import com.company.finalproject.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,10 @@ public class UserController {
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute User user) {
+        // Шифрование пароля
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encryptedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         service.create(user);
         return "redirect:/accommodations";
     }
@@ -48,21 +53,14 @@ public class UserController {
 
     @PostMapping("/edit/{id}")
     public String editUser(@PathVariable Long id, @ModelAttribute User user) {
-        user.setId(id);
-        service.create(user);
+        service.edit(id, user);
         return "redirect:/users";
     }
 
     @PostMapping("/setRatingByFullName")
     public String setRatingByFullName(@RequestParam(name = "fullName") String fullName,
-                                      @RequestParam(name = "rating") double rating) {
-        // Call the service to set the user's rating
+                                      @RequestParam(name = "rating") int rating) {
         service.setRatingByFullName(fullName, rating);
-
-        // Вызвать сервис для установки рейтинга пользователя
-//        service.setRatingAndHandleBlock(fullName, rating);
-
-        // Redirect the user back to the page they came from
         return "redirect:/accommodations";
     }
 }

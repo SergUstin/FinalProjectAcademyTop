@@ -156,15 +156,16 @@
     <br>
     <form action="/users/setRatingByFullName" method="post">
         <input type="text" name="fullName" placeholder="Введите полное имя владельца">
-        <input type="number" name="rating" placeholder="Оценка">
+        <input type="number" name="rating" placeholder="Оценка (от 1 до 5)" min="1" max="5">
         <input type="submit" value="Оценить владельца">
     </form>
     <br>
     <form action="/users/setRatingByFullName" method="post">
         <input type="text" name="fullName" placeholder="Введите полное имя владельца">
-        <input type="number" name="rating" placeholder="Оценка">
+        <input type="number" name="rating" placeholder="Оценка (от 1 до 5)" min="1" max="5">
         <input type="submit" value="Оценить арендатора">
     </form>
+    <a class="btn" href="/users">К списку пользователей</a>
 </div>
 <script>
     document.getElementById("filterButton").addEventListener("click", function(e) {

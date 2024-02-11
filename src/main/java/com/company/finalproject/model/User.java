@@ -1,10 +1,9 @@
-package com.compony.finalproject.model;
+package com.company.finalproject.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 
 @Getter
 @Setter
@@ -21,14 +20,9 @@ public class User {
     private String password;
     @Column(name = "date_of_birth")
     private String dateOfBirth;
-    private Double rating = 0.0;
+    private Integer rating;
     @Column(name = "number_of_rating")
-    private Long numberOfRatings = 0L;
+    private Long numberOfRatings;
     private String email;
     private String status;
-
-    @Transient
-    public void incrementNumberOfRatings() {
-        this.numberOfRatings++;
-    }
 }

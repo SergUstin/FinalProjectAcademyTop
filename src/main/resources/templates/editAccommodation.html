@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit accommodation</title>
+    <title>Редактировать объявление</title>
     <style>
         /* Стили для формы */
         form {
@@ -51,7 +51,7 @@
 </head>
 <body>
 <form th:action="@{/accommodations/edit/{id}(id=${accommodation.id})}" method="post" th:object="${accommodation}">
-    <h2>Edit accommodation</h2>
+    <h2>Редактировать объявление</h2>
     <label for="fullName">City:</label>
     <input type="text" id="fullName" th:field="*{city}" />
     <br/>
@@ -59,9 +59,9 @@
     <input type="text" id="city" th:field="*{country}" />
     <br/>
     <label for="country">Price:</label>
-    <input type="text" id="country" th:field="*{price}" />
+    <input type="number" id="country" th:field="*{price}" />
     <br/>
-    <button type="submit">Изменить данные</button>
+    <button type="submit">Сохранить изменения</button>
 </form>
 </body>
 </html>

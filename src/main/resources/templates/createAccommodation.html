@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create accommodations</title>
+    <title>Подать объявление</title>
     <style>
         /* Стили для формы */
         form {
@@ -51,7 +51,7 @@
 </head>
 <body>
 <form action="/accommodations/create" method="post" th:object="${accommodation}">
-    <h2>Create accommodations</h2>
+    <h2>Подать объявление</h2>
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" />
     <br/>
@@ -62,9 +62,9 @@
     <input type="text" id="city" th:field="*{country}" />
     <br/>
     <label for="country">Price:</label>
-    <input type="text" id="country" th:field="*{price}" />
+    <input type="number" id="country" th:field="*{price}" />
     <br/>
-    <button type="submit">Save</button>
+    <button type="submit">Подать объявление</button>
 </form>
 </body>
 </html>

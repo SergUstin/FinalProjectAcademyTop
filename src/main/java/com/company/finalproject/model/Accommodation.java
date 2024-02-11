@@ -1,11 +1,10 @@
-package com.compony.finalproject.model;
+package com.company.finalproject.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,9 +21,9 @@ public class Accommodation {
     @Column(name = "available_to")
     private LocalDate availableTo;
     private String price;
-    private Double rating = 0.0;
+    private Integer rating;
     @Column(name = "number_of_rating")
-    private Long numberOfRatings = 0L;
+    private Long numberOfRatings;
 
 
     @Column(name = "user_id")
@@ -32,26 +31,4 @@ public class Accommodation {
 
     @Column(name = "landlord_id")
     private Long landlordId;
-
-    @Transient
-    public void incrementNumberOfRatings() {
-        this.numberOfRatings++;
-    }
-
-
-//    @Transient
-//    public static double calculateAverageRating(List<Double> ratings) {
-//        if (ratings == null || ratings.isEmpty()) {
-//            return 0.0;
-//        }
-//
-//        double sum = 0.0;
-//        for (double rating : ratings) {
-//            sum += rating;
-//        }
-//
-//        return sum / ratings.size();
-//    }
-
-
 }

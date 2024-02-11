@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
+    <title>Список пользователей</title>
     <style>
         .container {
             width: 80%; /* Ширина контейнера */
@@ -39,7 +39,7 @@
 
 <body>
 <div class="container">
-    <h1>Users List</h1>
+    <h1>Список пользователей</h1>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -48,7 +48,6 @@
             <th>Email</th>
             <th>dateOfBirth</th>
             <th>Edit</th>
-            <th>Delete</th>
         </tr>
         <tr th:each="userDto : ${users}">
             <td th:text="${userDto.id}"></td>
@@ -57,12 +56,12 @@
             <td th:text="${userDto.email}"></td>
             <td th:text="${userDto.dateOfBirth}"></td>
             <td><a th:href="@{/users/edit/{id}(id=${userDto.id})}">Edit</a></td>
-            <td><a th:href="@{/user/delete/{id}(id=${userDto.id})}">Delete</a></td>
         </tr>
     </table>
 
     <br>
-    <a class="create-contact-button" href="/users/create">Create New User</a>
+    <a class="create-contact-button" href="/users/create">Создать нового пользователя</a>
+    <a class="create-contact-button" href="/accommodations">К списку квартир</a>
 </div>
 
 </body>
