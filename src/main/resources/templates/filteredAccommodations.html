@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список квартир</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #008080;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            margin: 20px;
+        }
+
+        label {
+            margin: 10px 0;
+        }
+
+        input {
+            padding: 5px;
+            margin: 0 30px 0 0;
+            border: 1px solid #ccc;
+        }
+
+        input[type="date"] {
+            padding: 6px;
+        }
+
+        input[type="submit"] {
+            background-color: #008080;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            table-layout: fixed;
+            width: 100%; /* Задаем ширину таблицы */
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        table tr td:last-child {
+            width: 1%; /* Устанавливаем ширину последнего столбца */
+            white-space: nowrap; /* Предотвращаем перенос содержимого */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #addAccommodationLink, #filterButton {
+            padding: 10px 5px;
+            background-color: #008080;
+            color: #fff;
+            border: none;
+            margin: 0px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        #addAccommodationLink:hover, #filterButton:hover {
+            background-color: #005757;
+        }
+    </style>
+</head>
+<body>
+<h1>Список квартир</h1>
+<form action="/accommodations/filter"  method="get">
+    <label for="city">Город:</label>
+    <input type="text" id="city" name="city">
+
+    <label for="country">Страна:</label>
+    <input type="text" id="country" name="country">
+
+    <label for="availableFrom">Доступно с:</label>
+    <input type="date" id="availableFrom" name="availableFrom">
+
+    <label for="availableTo">Доступно до:</label>
+    <input type="date" id="availableTo" name="availableTo">
+
+    <label for="price">Цена:</label>
+    <input type="number" id="price" name="price">
+
+    <label for="rating">Рейтинг:</label>
+    <input type="number" id="rating" name="rating">
+
+    <button id="filterButton" >Фильтровать</button>
+    <a href="/accommodations/create" id="addAccommodationLink">Добавить жилье</a>
+</form>
+<table>
+    <tr>
+        <th>Город</th>
+        <th>Страна</th>
+        <th>Цена</th>
+        <th>Рейтинг</th>
+        <th></th>
+    </tr>
+    <tr th:each="accommodationDto : ${accommodations}">
+        <td th:text="${accommodationDto.city}"></td>
+        <td th:text="${accommodationDto.country}"></td>
+        <td th:text="${accommodationDto.price}"></td>
+        <td th:text="${accommodationDto.rating}"></td>
+        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Забронировать</a></td>
+        <td><a th:href="@{/accommodations/booking/{id}(id=${accommodationDto.id})}">Оценить жилье</a></td>
+    </tr>
+</table>
+
+<script>
+
+    document.getElementById("filterButton").addEventListener("click", function(e) {
+        e.preventDefault();
+        const city = document.getElementById("city").value;
+        const country = document.getElementById("country").value;
+        const availableFrom = document.getElementById("availableFrom").value;
+        const availableTo = document.getElementById("availableTo").value;
+        const price = document.getElementById("price").value;
+
+        let url = "/accommodations/filter?";
+
+        if (city) {
+            url += "city=" + city + "&";
+        }
+
+        if (country) {
+            url += "country=" + country + "&";
+        }
+
+        if (availableFrom) {
+            url += "availableFrom=" + availableFrom + "&";
+        }
+
+        if (availableTo) {
+            url += "availableTo=" + availableTo + "&";
+        }
+
+        if (price) {
+            url += "price=" + price + "&";
+        }
+
+        // Remove the last '&' if it exists
+        url = url.slice(0, -1);
+
+        window.location.href = url;
+    });
+</script>
+
+</body>
+</html>

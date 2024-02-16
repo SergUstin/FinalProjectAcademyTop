@@ -1,126 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-<!--    <changeSet id="createLandlordTable" author="admin">-->
-<!--        <createTable tableName="landlords">-->
-<!--            <column name="id" autoIncrement="true" type="integer">-->
-<!--                <constraints primaryKey="true" />-->
-<!--            </column>-->
-<!--            <column name="full_name" type="varchar(255)"/>-->
-<!--            <column name="phone_number" type="varchar(255)"/>-->
-<!--            <column name="email" type="varchar(255)"/>-->
-<!--            <column name="rating" type="integer"/>-->
-<!--            <column name="data_registration" type="timestamp(6)"/>-->
-<!--            <column name="apartments_id" type="integer"/>-->
-<!--        </createTable>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet id="addForeignKeyToLandlordsForApartments" author="admin">-->
-<!--        <addForeignKeyConstraint baseTableName="landlords"-->
-<!--                                 baseColumnNames="apartments_id"-->
-<!--                                 constraintName="fk_landlords_apartments"-->
-<!--                                 referencedTableName="apartments"-->
-<!--                                 referencedColumnNames="id"-->
-<!--                                 onDelete="CASCADE"/>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet id="createTenantTable" author="admin">-->
-<!--        <createTable tableName="tenants">-->
-<!--            <column name="id" autoIncrement="true" type="integer">-->
-<!--                <constraints primaryKey="true" />-->
-<!--            </column>-->
-<!--            <column name="full_name" type="varchar(255)"/>-->
-<!--            <column name="phone_number" type="varchar(255)"/>-->
-<!--            <column name="email" type="varchar(255)"/>-->
-<!--            <column name="rating" type="integer"/>-->
-<!--            <column name="data_registration" type="timestamp(6)"/>-->
-<!--            <column name="apartments_id" type="integer"/>-->
-<!--        </createTable>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet id="addForeignKeyToTenantForApartments" author="admin">-->
-<!--        <addForeignKeyConstraint baseTableName="tenants"-->
-<!--                                 baseColumnNames="apartments_id"-->
-<!--                                 constraintName="fk_tenants_apartments"-->
-<!--                                 referencedTableName="apartments"-->
-<!--                                 referencedColumnNames="id"-->
-<!--                                 onDelete="CASCADE"/>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet id="createApartmentsTable" author="admin">-->
-<!--        <createTable tableName="apartments">-->
-<!--            <column name="id" autoIncrement="true" type="integer">-->
-<!--                <constraints primaryKey="true" />-->
-<!--            </column>-->
-<!--            <column name="city" type="varchar(255)"/>-->
-<!--            <column name="address" type="varchar(255)"/>-->
-<!--            <column name="landlord_id" type="integer"/>-->
-<!--            <column name="tenants_id" type="integer"/>-->
-<!--        </createTable>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet id="addForeignKeyToApartmentsForLandlords" author="admin">-->
-<!--        <addForeignKeyConstraint baseTableName="apartments"-->
-<!--                                 baseColumnNames="landlord_id"-->
-<!--                                 constraintName="fk_apartments_landlords"-->
-<!--                                 referencedTableName="landlords"-->
-<!--                                 referencedColumnNames="id"-->
-<!--                                 onDelete="CASCADE"/>-->
-<!--    </changeSet>-->
-
-<!--    <changeSet id="addForeignKeyToApartmentsForTenants" author="admin">-->
-<!--        <addForeignKeyConstraint baseTableName="apartments"-->
-<!--                                 baseColumnNames="tenant_id"-->
-<!--                                 constraintName="fk_apartments_tenants"-->
-<!--                                 referencedTableName="tenants"-->
-<!--                                 referencedColumnNames="id"-->
-<!--                                 onDelete="CASCADE"/>-->
-<!--    </changeSet>-->
-
-
-    <changeSet id="createTenantsTable" author="admin">
-        <createTable tableName="tenants">
-            <column name="id" type="INTEGER" autoIncrement="true">
+    <changeSet author="admin" id="createUserTable">
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="full_name" type="VARCHAR(255)"/>
-            <column name="phone_number" type="VARCHAR(255)"/>
-            <column name="email" type="VARCHAR(255)"/>
-            <column name="rating" type="BIGINT"/>
-            <column name="data_registration" type="TIMESTAMP"/>
+            <column name="full_name" type="varchar(255)"/>
+            <column name="city" type="varchar(255)"/>
+            <column name="country" type="varchar(255)"/>
+            <column name="username" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="date_of_birth" type="varchar(255)"/>
+            <column name="rating" type="int"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="number_of_rating" type="BIGINT"/>
         </createTable>
     </changeSet>
 
-    <changeSet id="createLandlordTable" author="admin">
-        <createTable tableName="landlords">
-            <column name="id" type="INTEGER" autoIncrement="true">
+    <changeSet author="admin" id="createAccommodationTable">
+        <createTable tableName="accommodations">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="full_name" type="VARCHAR(255)"/>
-            <column name="phone_number" type="VARCHAR(255)"/>
-            <column name="email" type="VARCHAR(255)"/>
-            <column name="rating" type="BIGINT"/>
-            <column name="data_registration" type="TIMESTAMP"/>
+            <column name="city" type="varchar(255)"/>
+            <column name="country" type="varchar(255)"/>
+            <column name="available_from" type="date"/>
+            <column name="available_to" type="date"/>
+            <column name="price" type="varchar(255)"/>
+            <column name="rating" type="int"/>
+            <column name="user_id" type="int"/>
+            <column name="landlord_id" type="int"/>
+            <column name="number_of_rating" type="BIGINT"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="createApartmentsTable" author="admin">
-        <createTable tableName="apartments">
-            <column name="id" type="INTEGER" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="city" type="VARCHAR(255)"/>
-            <column name="address" type="VARCHAR(255)"/>
-            <column name="landlord_id" type="INTEGER">
-                <constraints foreignKeyName="apartments_landlord_fk" references="landlords(id)"/>
-            </column>
-            <column name="tenant_id" type="INTEGER">
-                <constraints foreignKeyName="apartments_tenant_fk" references="tenants(id)"/>
-            </column>
-        </createTable>
-        <addNotNullConstraint tableName="apartments" columnName="landlord_id" columnDataType="INTEGER"/>
     </changeSet>
 </databaseChangeLog>

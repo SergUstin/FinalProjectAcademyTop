@@ -1,18 +1,7 @@
-#Customer logging app
-logging:
-  level:
-    root: info
-    com.company.springexample: debug
-  pattern:
-    #    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
-    file: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
-  file:
-    name: log/logging.log
-
 #Connecting and configuring the database
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/rental-housing
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
@@ -24,3 +13,15 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.xml
     enabled: true
     drop-first: true
+
+
+#Customer logging app
+logging:
+  level:
+    root: info
+    com.company.finalproject: debug
+  pattern:
+    #    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+  file:
+    name: log/logging.log

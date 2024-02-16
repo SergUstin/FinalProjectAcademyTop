@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="ru">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование</title>
+    <style>
+        /* Стили для формы */
+        form {
+            margin: 0 auto; /* задаем автоматичесные отступы слева и справа, чтобы форма центрировалась */
+            width: 300px; /* ширина формы */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Стили для меток */
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Стили для текстовых полей */
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Стили для кнопки */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Стили для кнопки при наведении */
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<form id="bookingForm" th:action="@{/accommodations/booking/{id}(id=${accommodation.id})}" th:object="${accommodation}" method="post">
+    <h1>Введите даты бронирования</h1>
+    <input type="hidden" name="id" th:value="${accommodation.id}"/>
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" />
+
+    <label for="startDate">Дата заезда:</label>
+    <input type="date" id="startDate" name="availableFrom" th:field="*{availableFrom}"/>
+
+    <label for="endDate">Дата отъезда:</label>
+    <input type="date" id="endDate" name="availableTo" th:field="*{availableTo}"/>
+
+    <button type="submit">Забронировать</button>
+</form>
+</body>
+</html>
